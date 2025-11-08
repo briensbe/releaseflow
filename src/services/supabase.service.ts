@@ -1,12 +1,12 @@
-import { Injectable } from '@angular/core';
+import { Injectable } from "@angular/core";
 import {
   AuthTokenResponse,
   createClient,
   SupabaseClient,
   UserResponse,
-} from '@supabase/supabase-js';
-import { environment } from '../environments/environment';
-import { LoginPayload, SignupPayload } from '../app/types/user.type';
+} from "@supabase/supabase-js";
+import { environment } from "../environments/environment";
+import { LoginPayload, SignupPayload } from "../app/types/user.type";
 
 @Injectable({
   providedIn: "root",
@@ -25,8 +25,8 @@ export class SupabaseService {
     return this.supabase;
   }
 
-//récupération de supabase-auth
-/**
+  //récupération de supabase-auth
+  /**
    * Connexion d'un utilisateur existant
    */
   async signInWithEmail(payload: LoginPayload) {
@@ -72,15 +72,25 @@ export class SupabaseService {
    */
   async resetPasswordForEmail(email: string): Promise<void> {
     try {
+      // Récupère l'URL de base de l'app (inclut le repo path)
+      const baseUrl =
+        document.querySelector("base")?.href || window.location.origin;
+
+      console.log("baseUrl = " + baseUrl);
+
       const { error } = await this.supabase.auth.resetPasswordForEmail(email, {
-        redirectTo: `${window.location.origin}/update-password`,
+        redirectTo: `${baseUrl}update-password`,
       });
+
+      // const { error } = await this.supabase.auth.resetPasswordForEmail(email, {
+      //   redirectTo: `${window.location.origin}/update-password`,
+      // });
 
       if (error) throw error;
     } catch (err: any) {
       // on renvoie l'erreur pour que le composant l'affiche proprement
       throw new Error(
-        err.message || 'Erreur lors de l’envoi du mail de réinitialisation.'
+        err.message || "Erreur lors de l’envoi du mail de réinitialisation."
       );
     }
   }
@@ -90,7 +100,7 @@ export class SupabaseService {
    * (lorsque Supabase redirige sur /reset-password avec access_token)
    */
   async exchangeCodeForSession(hash: string): Promise<AuthTokenResponse> {
-    if (!hash.includes('access_token')) throw new Error('Token manquant');
+    if (!hash.includes("access_token")) throw new Error("Token manquant");
     const response = await this.supabase.auth.exchangeCodeForSession(hash);
     if (response.error) throw new Error(response.error.message);
     return response;
@@ -110,6 +120,4 @@ export class SupabaseService {
   async getSession() {
     return this.supabase.auth.getSession();
   }
-
-
 }
