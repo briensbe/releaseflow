@@ -1,0 +1,61 @@
+/* Style du conteneur principal */
+.container {
+  max-width: 500px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  text-align: left; /* Alignement général à gauche */
+}
+
+/* Style du titre */
+.container h2 {
+  color: #2c3e50;
+  margin-bottom: 1.5rem;
+  font-weight: 500;
+  text-align: left; /* Alignement à gauche */
+}
+
+/* Style des paragraphes d'information */
+.container p {
+  margin-bottom: 1rem;
+  color: #555;
+  line-height: 1.5;
+  text-align: left; /* Alignement à gauche */
+}
+
+/* Style du message de bienvenue */
+.container p:first-of-type {
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+  color: #27ae60; /* Vert pour un message positif */
+}
+
+/* Style des paragraphes d'information utilisateur */
+.container p:not(:first-of-type) {
+  font-weight: 500;
+  color: #2c3e50;
+  word-break: break-all; /* Pour éviter les débordements */
+}
+
+/* Style du bouton de déconnexion */
+.container button {
+  display: block;
+  width: 100%;
+  padding: 0.85rem;
+  margin-top: 2rem;
+  background-color: #e74c3c; /* Rouge pour indiquer une action importante */
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.container button:hover {
+  background-color: #c0392b;
+}

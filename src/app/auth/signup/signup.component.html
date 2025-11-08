@@ -1,0 +1,48 @@
+<div class="container">
+  <h2>Sign Up</h2>
+  <form>
+    <input
+      type="text"
+      [(ngModel)]="name"
+      name="name"
+      placeholder="Full Name"
+      required
+    />
+    <input
+      type="email"
+      [(ngModel)]="email"
+      name="email"
+      placeholder="Email"
+      required
+    />
+    <input
+      type="password"
+      [(ngModel)]="password"
+      name="password"
+      minlength="6"
+      placeholder="Mot de passe (Minimum 6 caractères)"
+      required
+    />
+    <input
+      type="password"
+      id="confirmPassword"
+      [(ngModel)]="confirmPassword"
+      name="confirmPassword"
+      placeholder="Confirmez votre mot de passe"
+      minlength="6"
+      required
+    />
+
+    <button type="button" (click)="signUp()">Sign Up</button>
+  </form>
+
+  <div *ngIf="error" class="message error">
+    {{ error }}
+  </div>
+
+  <div *ngIf="message" class="message success">
+    {{ message }}
+  </div>
+
+  <p>Already have an account? <a (click)="navigateToLogin()">Log In</a></p>
+</div>
