@@ -41,7 +41,7 @@
 }
 
 /* Style du bouton de déconnexion */
-.container button {
+.container .btn {
   display: block;
   width: 100%;
   padding: 0.85rem;
@@ -56,6 +56,13 @@
   transition: background-color 0.3s ease;
 }
 
-.container button:hover {
+.container .btn:hover {
   background-color: #c0392b;
+}
+
+.container .btn-secondary {
+  background-color: #6c757d; /* couleur différente pour le 2e bouton */
+}
+.container .btn-secondary:hover {
+  background-color: #2a2b2c; 
 }

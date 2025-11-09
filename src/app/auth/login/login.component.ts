@@ -24,7 +24,8 @@ export class LoginComponent {
     if (error) {
       alert('Error signing in: ' + error.message);
     } else {
-      this.router.navigate(['/profile']);
+      // this.router.navigate(['/profile']); // ancien comportement par défaut isssu de supabase-auth
+      this.router.navigate(['/compact']);
     }
   }
 

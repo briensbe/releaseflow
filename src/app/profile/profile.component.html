@@ -9,9 +9,10 @@
   <p>Email: {{ user.email }}</p>
   <p>Display Name: {{ user.user_metadata.displayName }}</p>
   }
-
-  <button (click)="signOut()">Sign Out</button>
   
-  <button (click)="updatePassword()">Modifier le mot de passe</button>
+  <button class="btn btn-secondary" (click)="updatePassword()">Modifier le mot de passe</button>
+
+  <button class="btn" (click)="signOut()">Sign Out</button>
+  
 
 </div>

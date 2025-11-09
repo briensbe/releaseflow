@@ -53,7 +53,7 @@ import { Event } from '../models/event.model';
       <div class="modal" *ngIf="showModal" (click)="closeModal()">
         <div class="modal-content" (click)="$event.stopPropagation()">
           <div class="modal-header">
-            <h3>{{ isEditMode ? 'Modifier l\'événement' : 'Nouvel événement' }}</h3>
+            <h3>{{ isEditMode ? "Modifier l'événement" : "Nouvel événement" }}</h3>
             <button class="close-btn" (click)="closeModal()">×</button>
           </div>
 
@@ -413,8 +413,8 @@ export class CompactViewComponent implements OnInit {
   monthsData: any[] = [];
   events: Event[] = [];
 
-  showModal = false;
   isEditMode = false;
+  showModal = false;
   modalEvent: any = {};
 
   dayNames = ['D', 'L', 'M', 'M', 'J', 'V', 'S'];

@@ -76,9 +76,9 @@ export class SupabaseService {
       const baseUrl =
         document.querySelector("base")?.href || window.location.origin;
 
-      console.log("baseUrl = " + baseUrl);
-      console.log("$baseUrl ... = " + `${baseUrl}update-password`);
-      console.log("baseUrl ... = )" +  baseUrl + "update-password");
+      // console.log("baseUrl = " + baseUrl);
+      // console.log("$baseUrl ... = " + `${baseUrl}update-password`);
+      // console.log("baseUrl ... = )" +  baseUrl + "update-password");
 
       const { error } = await this.supabase.auth.resetPasswordForEmail(email, {
         // redirectTo: `${baseUrl}update-password`,
