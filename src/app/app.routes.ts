@@ -17,7 +17,7 @@ export const routes: Routes = [
     path: "",
     canActivate: [AuthGuard],
     children: [
-      { path: "", redirectTo: "/calendar", pathMatch: "full" },
+      { path: "", redirectTo: "/compact", pathMatch: "full" },
       { path: "list", component: EventListComponent },
       { path: "calendar", component: CalendarViewComponent },
       { path: "compact", component: CompactViewComponent },

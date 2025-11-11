@@ -1,10 +1,5 @@
 import { Injectable } from "@angular/core";
-import {
-  AuthTokenResponse,
-  createClient,
-  SupabaseClient,
-  UserResponse,
-} from "@supabase/supabase-js";
+import { AuthTokenResponse, createClient, SupabaseClient, UserResponse } from "@supabase/supabase-js";
 import { environment } from "../environments/environment";
 import { LoginPayload, SignupPayload } from "../app/types/user.type";
 
@@ -15,10 +10,7 @@ export class SupabaseService {
   private supabase: SupabaseClient;
 
   constructor() {
-    this.supabase = createClient(
-      environment.supabaseUrl,
-      environment.supabaseKey
-    );
+    this.supabase = createClient(environment.supabaseUrl, environment.supabaseKey);
   }
 
   getClient(): SupabaseClient {
@@ -40,10 +32,15 @@ export class SupabaseService {
    * Inscription d'un nouvel utilisateur
    */
   async signUpWithEmail(payload: SignupPayload) {
+    // Récupère l'URL de base de l'app (inclut le repo path)
+    const baseUrl = document.querySelector("base")?.href || window.location.origin;
+    // console.log("1- signup baseUrl = " + baseUrl);
+
     return await this.supabase.auth.signUp({
       email: payload.email,
       password: payload.password,
       options: {
+        emailRedirectTo: baseUrl,
         data: {
           displayName: payload.name,
         },
@@ -73,8 +70,7 @@ export class SupabaseService {
   async resetPasswordForEmail(email: string): Promise<void> {
     try {
       // Récupère l'URL de base de l'app (inclut le repo path)
-      const baseUrl =
-        document.querySelector("base")?.href || window.location.origin;
+      const baseUrl = document.querySelector("base")?.href || window.location.origin;
 
       // console.log("baseUrl = " + baseUrl);
       // console.log("$baseUrl ... = " + `${baseUrl}update-password`);
@@ -92,9 +88,7 @@ export class SupabaseService {
       if (error) throw error;
     } catch (err: any) {
       // on renvoie l'erreur pour que le composant l'affiche proprement
-      throw new Error(
-        err.message || "Erreur lors de l’envoi du mail de réinitialisation."
-      );
+      throw new Error(err.message || "Erreur lors de l’envoi du mail de réinitialisation.");
     }
   }
 
