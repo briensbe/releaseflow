@@ -3,13 +3,27 @@ import { bootstrapApplication } from "@angular/platform-browser";
 import { provideRouter, RouterModule } from "@angular/router";
 import { routes } from "./app/app.routes";
 import { CommonModule } from "@angular/common";
-import { LucideAngularModule, User } from "lucide-angular";
+import {
+  LucideAngularModule,
+  User,
+  Search,
+  X,
+  Package,
+  Plus,
+  Trash2,
+  PenLine,
+  Rocket,
+  PanelLeftClose,
+  PanelLeftOpen,
+  Menu,
+  LucideHistory,
+  Calendar,
+} from "lucide-angular";
 
 @Component({
   selector: "app-root",
   standalone: true,
   imports: [CommonModule, RouterModule, LucideAngularModule],
-  // providers: [provideIcons({ user: User })], // <-- important
   template: `
     <div class="app-container">
       <nav class="navbar">
@@ -111,6 +125,22 @@ export class App {}
 bootstrapApplication(App, {
   providers: [
     provideRouter(routes),
-    importProvidersFrom(LucideAngularModule.pick({ User })),
+    importProvidersFrom(
+      LucideAngularModule.pick({
+        User,
+        Search,
+        X,
+        Package,
+        Plus,
+        Trash2,
+        PenLine,
+        Rocket,
+        Menu,
+        PanelLeftClose,
+        PanelLeftOpen,
+        LucideHistory,
+        Calendar,
+      })
+    ),
   ],
 });
