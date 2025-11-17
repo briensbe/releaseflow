@@ -84,8 +84,16 @@ import { LucideAngularModule } from "lucide-angular";
           width: 100%;
           height: calc(100vh - 80px);
           z-index: 50;
+          pointer-events: none; /* ← LA CLÉ : ignore les clics par défaut */
         }
 
+        /* Permet les clics uniquement sur les éléments interactifs */
+        .sidebar-content,
+        .sidebar-overlay,
+        .sidebar-toggle {
+          pointer-events: auto;
+        }
+        
         .sidebar-content {
           position: absolute;
         }
