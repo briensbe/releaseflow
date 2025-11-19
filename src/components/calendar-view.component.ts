@@ -4,12 +4,13 @@ import { FormsModule } from "@angular/forms";
 import { EventService } from "../services/event.service";
 import { Event } from "../models/event.model";
 import { LucideAngularModule } from "lucide-angular";
+import { DayEventsModalComponent } from "./day-events-modal.component";
 import { SidebarPanelComponent } from "./sidebar-panel.component";
 
 @Component({
   selector: "app-calendar-view",
   standalone: true,
-  imports: [CommonModule, FormsModule, LucideAngularModule, SidebarPanelComponent],
+  imports: [CommonModule, FormsModule, LucideAngularModule, SidebarPanelComponent, DayEventsModalComponent],
   template: `
     <div class="calendar-wrapper">
       <app-sidebar-panel [isOpen]="sidebarOpen" (toggleEvent)="sidebarOpen = !sidebarOpen"></app-sidebar-panel>
@@ -26,6 +27,7 @@ import { SidebarPanelComponent } from "./sidebar-panel.component";
           <div
             *ngFor="let day of calendarDays"
             class="calendar-day"
+            (click)="onDayClick(day)"
             [class.other-month]="!day.isCurrentMonth"
             [class.today]="day.isToday"
           >
@@ -37,16 +39,25 @@ import { SidebarPanelComponent } from "./sidebar-panel.component";
                 class="event-item"
                 [class.event-livraison]="event.event_type === 'livraison'"
                 [class.event-mep]="event.event_type === 'mep'"
-                (click)="openEventModal(event, day.date)"
+                (click)="$event.stopPropagation(); openEventModal(event, day.date)"
               >
                 <lucide-icon [name]="event.event_type === 'livraison' ? 'package' : 'rocket'" size="12"> </lucide-icon>
                 {{ event.title.substring(0, 10) }}
               </div>
 
-              <button class="add-event-btn" (click)="openAddEventModal(day.date)">+</button>
+              <button class="add-event-btn" (click)="$event.stopPropagation(); openAddEventModal(day.date)">+</button>
             </div>
           </div>
         </div>
+
+        <app-day-events-modal
+          *ngIf="showDayEventsModal"
+          [events]="selectedDayEvents"
+          [dateStr]="selectedDayDateStr"
+          (close)="showDayEventsModal = false"
+          (openEvent)="openEventModal($event, selectedDayDateStr)"
+          (add)="onDayModalAdd($event)"
+        ></app-day-events-modal>
 
         <div class="modal" *ngIf="showModal" (click)="closeModal()">
           <div class="modal-content" (click)="$event.stopPropagation()">
@@ -384,6 +395,11 @@ export class CalendarViewComponent implements OnInit {
   isEditMode = false;
   modalEvent: any = {};
 
+  // Day list modal state
+  showDayEventsModal = false;
+  selectedDayEvents: Event[] = [];
+  selectedDayDateStr: string | null = null;
+
   constructor(private eventService: EventService) {}
 
   ngOnInit(): void {
@@ -478,22 +494,39 @@ export class CalendarViewComponent implements OnInit {
     this.generateCalendar();
   }
 
-  openAddEventModal(date: string): void {
+  openAddEventModal(date: string | null): void {
     this.isEditMode = false;
     this.modalEvent = {
       event_type: "livraison",
       version: "",
-      event_date: date,
+      event_date: date ?? "",
       description: "",
       title: "",
     };
     this.showModal = true;
   }
 
-  openEventModal(event: Event, date: string): void {
+  openEventModal(event: Event, date: string | null): void {
+    // hide day modal if open
+    this.showDayEventsModal = false;
     this.isEditMode = true;
     this.modalEvent = { ...event };
     this.showModal = true;
+  }
+
+  onDayClick(day: any): void {
+    if (day && day.events && day.events.length > 0) {
+      this.selectedDayEvents = day.events;
+      this.selectedDayDateStr = day.date;
+      this.showDayEventsModal = true;
+    } else if (day && day.date) {
+      this.openAddEventModal(day.date);
+    }
+  }
+
+  onDayModalAdd(date: string | null) {
+    this.showDayEventsModal = false;
+    setTimeout(() => this.openAddEventModal(date), 0);
   }
 
   closeModal(): void {

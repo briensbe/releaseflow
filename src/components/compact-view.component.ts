@@ -5,11 +5,12 @@ import { EventService } from "../services/event.service";
 import { Event } from "../models/event.model";
 import { LucideAngularModule } from "lucide-angular";
 import { SidebarPanelComponent } from "./sidebar-panel.component";
+import { DayEventsModalComponent } from "./day-events-modal.component";
 
 @Component({
   selector: "app-compact-view",
   standalone: true,
-  imports: [CommonModule, FormsModule, LucideAngularModule, SidebarPanelComponent],
+  imports: [CommonModule, FormsModule, LucideAngularModule, SidebarPanelComponent, DayEventsModalComponent],
   template: `
     <div class="compact-wrapper">
       <app-sidebar-panel [isOpen]="sidebarOpen" (toggleEvent)="sidebarOpen = !sidebarOpen"></app-sidebar-panel>
@@ -35,6 +36,7 @@ import { SidebarPanelComponent } from "./sidebar-panel.component";
               <div
                 *ngFor="let day of monthData.days"
                 class="table-row"
+                (click)="onRowClick(day)"
                 [class.has-events]="day.events.length > 0"
                 [class.today]="day.isToday"
               >
@@ -47,13 +49,13 @@ import { SidebarPanelComponent } from "./sidebar-panel.component";
                       class="compact-event"
                       [class.event-livraison]="event.event_type === 'livraison'"
                       [class.event-mep]="event.event_type === 'mep'"
-                      (click)="openEventModal(event)"
+                      (click)="$event.stopPropagation(); openEventModal(event)"
                     >
                       <lucide-icon [name]="event.event_type === 'livraison' ? 'package' : 'rocket'" size="11">
                       </lucide-icon>
                       {{ event.title.substring(0, 14) }}
                     </div>
-                    <button class="add-compact-btn" (click)="openAddEventModal(day.dateStr)">+</button>
+                    <button class="add-compact-btn" (click)="$event.stopPropagation(); openAddEventModal(day.dateStr)">+</button>
                   </div>
                 </div>
               </div>
@@ -61,6 +63,15 @@ import { SidebarPanelComponent } from "./sidebar-panel.component";
           </div>
         </div>
       </div>
+
+      <app-day-events-modal
+        *ngIf="showDayEventsModal"
+        [events]="selectedDayEvents"
+        [dateStr]="selectedDayDateStr"
+        (close)="showDayEventsModal = false"
+        (openEvent)="openEventModal($event)"
+        (add)="onDayModalAdd($event)"
+      ></app-day-events-modal>
 
       <div class="modal" *ngIf="showModal" (click)="closeModal()">
         <div class="modal-content" (click)="$event.stopPropagation()">
@@ -444,6 +455,11 @@ export class CompactViewComponent implements OnInit {
 
   dayNames = ["D", "L", "M", "M", "J", "V", "S"];
 
+  // Day list modal state
+  showDayEventsModal = false;
+  selectedDayEvents: Event[] = [];
+  selectedDayDateStr: string | null = null;
+
   constructor(private eventService: EventService) {
     this.startDate.setDate(1);
   }
@@ -542,9 +558,26 @@ export class CompactViewComponent implements OnInit {
   }
 
   openEventModal(event: Event): void {
+    // if day modal open, close it before opening event modal
+    this.showDayEventsModal = false;
     this.isEditMode = true;
     this.modalEvent = { ...event };
     this.showModal = true;
+  }
+
+  onRowClick(day: any): void {
+    if (day && day.events && day.events.length > 0) {
+      this.selectedDayEvents = day.events;
+      this.selectedDayDateStr = day.dateStr;
+      this.showDayEventsModal = true;
+    } else if (day && day.dateStr) {
+      this.openAddEventModal(day.dateStr);
+    }
+  }
+
+  onDayModalAdd(date: string | null) {
+    this.showDayEventsModal = false;
+    setTimeout(() => this.openAddEventModal(date ?? ""), 0);
   }
 
   closeModal(): void {
