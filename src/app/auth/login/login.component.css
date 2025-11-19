@@ -43,7 +43,7 @@
 }
 
 /* Style du bouton */
-.container button[type="button"] {
+.container button {
   width: 100%;
   padding: 0.85rem;
   background-color: #3498db;
@@ -57,7 +57,7 @@
   margin-top: 0.5rem;
 }
 
-.container button[type="button"]:hover {
+.container button:hover {
   background-color: #2980b9;
 }
 
