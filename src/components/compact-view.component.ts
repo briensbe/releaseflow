@@ -23,7 +23,6 @@ import { DayEventsModalComponent } from "./day-events-modal.component";
 
         <div class="months-grid">
           <div *ngFor="let monthData of monthsData" class="month-column">
-            
             <h3 class="month-title">{{ monthData.title }}</h3>
 
             <div class="compact-table">
@@ -55,7 +54,9 @@ import { DayEventsModalComponent } from "./day-events-modal.component";
                       </lucide-icon>
                       {{ event.title.substring(0, 14) }}
                     </div>
-                    <button class="add-compact-btn" (click)="$event.stopPropagation(); openAddEventModal(day.dateStr)">+</button>
+                    <button class="add-compact-btn" (click)="$event.stopPropagation(); openAddEventModal(day.dateStr)">
+                      +
+                    </button>
                   </div>
                 </div>
               </div>

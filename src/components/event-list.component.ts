@@ -41,7 +41,9 @@ import { LucideAngularModule } from "lucide-angular";
         </div> -->
 
         <label class="toggle-row">
-          <span class="toggle-label"><lucide-icon name="lucide-history" size="18"></lucide-icon> Événements passés</span>
+          <span class="toggle-label"
+            ><lucide-icon name="lucide-history" size="18"></lucide-icon> Événements passés</span
+          >
 
           <div class="toggle-material">
             <input type="checkbox" [(ngModel)]="showPastEvents" (change)="filterEvents()" />

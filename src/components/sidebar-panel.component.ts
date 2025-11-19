@@ -93,7 +93,7 @@ import { LucideAngularModule } from "lucide-angular";
         .sidebar-toggle {
           pointer-events: auto;
         }
-        
+
         .sidebar-content {
           position: absolute;
         }
