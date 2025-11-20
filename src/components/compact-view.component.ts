@@ -175,15 +175,20 @@ import { DayEventsModalComponent } from "./day-events-modal.component";
       }
 
       .month-title {
-        background: #f8f9fa;
+        background: #2563eb;
         margin: 0;
         padding: 1rem;
         font-size: 1.125rem;
         font-weight: 600;
-        color: #1a1a1a;
+        color: white;
         text-align: center;
         border-bottom: 2px solid #dee2e6;
       }
+
+   /*   h3.month-title {
+        background: ##2563eb;
+color:white;}
+*/
 
       .compact-table {
         font-size: 0.8rem;

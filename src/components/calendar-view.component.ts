@@ -158,12 +158,12 @@ import { SidebarPanelComponent } from "./sidebar-panel.component";
       }
 
       .day-header {
-        background: #f8f9fa;
+        background: #2563eb;
         padding: 1rem;
         text-align: center;
         font-weight: 600;
         font-size: 0.875rem;
-        color: #495057;
+        color: white;
       }
 
       .calendar-day {
@@ -400,7 +400,7 @@ export class CalendarViewComponent implements OnInit {
   selectedDayEvents: Event[] = [];
   selectedDayDateStr: string | null = null;
 
-  constructor(private eventService: EventService) {}
+  constructor(private eventService: EventService) { }
 
   ngOnInit(): void {
     this.eventService.events$.subscribe((events) => {
