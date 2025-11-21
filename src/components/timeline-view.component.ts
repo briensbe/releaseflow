@@ -4,6 +4,11 @@ import { EventService } from "../services/event.service";
 import { Event } from "../models/event.model";
 import { LucideAngularModule } from "lucide-angular";
 
+interface TimelineGroup {
+  date: string;
+  events: Event[];
+}
+
 @Component({
   selector: "app-timeline-view",
   standalone: true,
@@ -19,22 +24,24 @@ import { LucideAngularModule } from "lucide-angular";
 
         <div
           class="timeline-item"
-          *ngFor="let event of events; let i = index"
+          *ngFor="let group of groupedEvents; let i = index"
           [class.left]="i % 2 === 0"
           [class.right]="i % 2 !== 0"
         >
           <div class="content">
-            <div class="date-badge">{{ formatDate(event.event_date) }}</div>
-            <div class="card" [class.is-livraison]="event.event_type === 'livraison'" [class.is-mep]="event.event_type === 'mep'">
-              <div class="card-header">
-                <span class="type-icon">
-                  <lucide-icon [name]="event.event_type === 'livraison' ? 'package' : 'rocket'" size="18"></lucide-icon>
-                </span>
-                <span class="title">{{ event.title }}</span>
-                <span class="version">{{ event.version }}</span>
-              </div>
-              <div class="card-body">
-                <p>{{ event.description }}</p>
+            <div class="date-badge">{{ formatDate(group.date) }}</div>
+            <div class="events-group">
+              <div class="card" *ngFor="let event of group.events" [class.is-livraison]="event.event_type === 'livraison'" [class.is-mep]="event.event_type === 'mep'">
+                <div class="card-header">
+                  <span class="type-icon">
+                    <lucide-icon [name]="event.event_type === 'livraison' ? 'package' : 'rocket'" size="18"></lucide-icon>
+                  </span>
+                  <span class="title">{{ event.title }}</span>
+                  <span class="version">{{ event.version }}</span>
+                </div>
+                <div class="card-body">
+                  <p>{{ event.description }}</p>
+                </div>
               </div>
             </div>
           </div>
@@ -167,6 +174,10 @@ import { LucideAngularModule } from "lucide-angular";
         overflow: hidden;
       }
 
+      .card + .card {
+        margin-top: 1rem;
+      }
+
       .card.is-livraison {
         border-left-color: #10b981;
       }
@@ -268,6 +279,7 @@ import { LucideAngularModule } from "lucide-angular";
 })
 export class TimelineViewComponent implements OnInit {
   events: Event[] = [];
+  groupedEvents: TimelineGroup[] = [];
 
   constructor(private eventService: EventService) { }
 
@@ -277,7 +289,23 @@ export class TimelineViewComponent implements OnInit {
       // Usually timelines are chronological. Let's do ascending (oldest top) or descending (newest top).
       // Let's do ascending for "what's coming/recent".
       this.events = [...events].sort((a, b) => new Date(a.event_date).getTime() - new Date(b.event_date).getTime());
+      this.groupEvents();
     });
+  }
+
+  private groupEvents(): void {
+    this.groupedEvents = [];
+
+    for (const event of this.events) {
+      const eventDate = new Date(event.event_date).toDateString();
+      const lastGroup = this.groupedEvents[this.groupedEvents.length - 1];
+
+      if (lastGroup && new Date(lastGroup.date).toDateString() === eventDate) {
+        lastGroup.events.push(event);
+      } else {
+        this.groupedEvents.push({ date: event.event_date, events: [event] });
+      }
+    }
   }
 
   formatDate(dateStr: string): string {
