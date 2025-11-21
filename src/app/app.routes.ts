@@ -2,6 +2,7 @@ import { Routes } from "@angular/router";
 import { EventListComponent } from "../components/event-list.component";
 import { CalendarViewComponent } from "../components/calendar-view.component";
 import { CompactViewComponent } from "../components/compact-view.component";
+import { TimelineViewComponent } from "../components/timeline-view.component";
 import { LoginComponent } from "./auth/login/login.component";
 import { SignupComponent } from "./auth/signup/signup.component";
 import { AuthGuard } from "./guards/auth.guard";
@@ -21,6 +22,7 @@ export const routes: Routes = [
       { path: "list", component: EventListComponent },
       { path: "calendar", component: CalendarViewComponent },
       { path: "compact", component: CompactViewComponent },
+      { path: "timeline", component: TimelineViewComponent },
       { path: "profile", component: ProfileComponent },
       { path: "update-password", component: UpdatePasswordComponent },
     ],

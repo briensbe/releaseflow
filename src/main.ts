@@ -18,6 +18,7 @@ import {
   Menu,
   LucideHistory,
   Calendar,
+  GitCommit,
 } from "lucide-angular";
 
 @Component({
@@ -33,6 +34,7 @@ import {
             <a routerLink="/calendar" routerLinkActive="active">Calendrier</a>
             <a routerLink="/compact" routerLinkActive="active">Vue Compacte</a>
             <a routerLink="/list" routerLinkActive="active">Liste</a>
+            <a routerLink="/timeline" routerLinkActive="active">Timeline</a>
             <a routerLink="/profile" routerLinkActive="active">
               <lucide-icon name="user" class="icon"></lucide-icon>
               Profil
@@ -120,7 +122,7 @@ import {
     `,
   ],
 })
-export class App {}
+export class App { }
 
 bootstrapApplication(App, {
   providers: [
@@ -140,6 +142,7 @@ bootstrapApplication(App, {
         PanelLeftOpen,
         LucideHistory,
         Calendar,
+        GitCommit,
       })
     ),
   ],
