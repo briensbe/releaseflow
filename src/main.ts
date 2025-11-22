@@ -19,6 +19,8 @@ import {
   LucideHistory,
   Calendar,
   GitCommit,
+  Columns,
+  AlignJustify,
 } from "lucide-angular";
 
 @Component({
@@ -143,6 +145,8 @@ bootstrapApplication(App, {
         LucideHistory,
         Calendar,
         GitCommit,
+        Columns,
+        AlignJustify,
       })
     ),
   ],

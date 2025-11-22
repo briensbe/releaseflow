@@ -17,17 +17,22 @@ interface TimelineGroup {
     <div class="timeline-container">
       <div class="header">
         <h2><lucide-icon name="git-commit" size="22"></lucide-icon> Timeline</h2>
+        <button class="toggle-btn" (click)="toggleMode()" [title]="isHorizontal ? 'Passer en vue verticale' : 'Passer en vue horizontale'">
+          <lucide-icon [name]="isHorizontal ? 'align-justify' : 'columns'" size="20"></lucide-icon>
+          <span>{{ isHorizontal ? 'Vue Verticale' : 'Vue Horizontale' }}</span>
+        </button>
       </div>
 
-      <div class="timeline">
-        <div class="timeline-line"></div>
+      <div class="timeline-wrapper" [class.horizontal]="isHorizontal">
+        <div class="timeline">
+          <div class="timeline-line"></div>
 
-        <div
-          class="timeline-item"
-          *ngFor="let group of groupedEvents; let i = index"
-          [class.left]="i % 2 === 0"
-          [class.right]="i % 2 !== 0"
-        >
+          <div
+            class="timeline-item"
+            *ngFor="let group of groupedEvents; let i = index"
+            [class.left]="!isHorizontal && i % 2 === 0"
+            [class.right]="!isHorizontal && i % 2 !== 0"
+          >
           <div class="content">
             <div class="date-badge">{{ formatDate(group.date) }}</div>
             <div class="events-group">
@@ -48,8 +53,9 @@ interface TimelineGroup {
           <div class="dot"></div>
         </div>
         
-        <div class="empty-state" *ngIf="events.length === 0">
-          <p>Aucun événement à afficher</p>
+          <div class="empty-state" *ngIf="events.length === 0">
+            <p>Aucun événement à afficher</p>
+          </div>
         </div>
       </div>
     </div>
@@ -57,16 +63,202 @@ interface TimelineGroup {
   styles: [
     `
       .timeline-container {
-        padding: 2rem;
         height: 100%;
-        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden; /* Keep hidden for container, but wrapper needs to handle it */
         background: #f8fafc;
+      }
+      
+      /* Allow vertical scroll on container when in horizontal mode if needed? 
+         Actually, if timeline-wrapper has overflow-x: auto, it handles horizontal.
+         If content grows vertically, timeline-wrapper height grows.
+         If timeline-wrapper grows > container height, container needs overflow-y: auto.
+      */
+      .timeline-container:has(.timeline-wrapper.horizontal) {
+        overflow-y: auto;
       }
 
       .header {
-        margin-bottom: 2rem;
-        text-align: center;
+        padding: 2rem;
+        margin-bottom: 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-shrink: 0;
       }
+
+      .toggle-btn {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.5rem 1rem;
+        background: white;
+        border: 1px solid #e2e8f0;
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: 500;
+        color: #64748b;
+        transition: all 0.2s;
+        box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+      }
+
+      .toggle-btn:hover {
+        background: #f1f5f9;
+        color: #334155;
+      }
+
+      .timeline-wrapper {
+        flex-grow: 1;
+        overflow-y: auto;
+        padding: 2rem;
+        position: relative;
+      }
+
+      /* Custom Scrollbar for Horizontal View */
+      .timeline-wrapper.horizontal::-webkit-scrollbar {
+        height: 12px; /* Thicker scrollbar */
+      }
+
+      .timeline-wrapper.horizontal::-webkit-scrollbar-track {
+        background: #f1f5f9;
+        border-radius: 6px;
+      }
+
+      .timeline-wrapper.horizontal::-webkit-scrollbar-thumb {
+        background-color: #cbd5e1;
+        border-radius: 6px;
+        border: 3px solid #f1f5f9;
+      }
+
+      .timeline-wrapper.horizontal::-webkit-scrollbar-thumb:hover {
+        background-color: #94a3b8;
+      }
+
+      .timeline-wrapper.horizontal {
+        overflow-x: auto;
+        overflow-y: hidden; /* Allow main container to scroll if needed, but usually we want horizontal scroll */
+        /* Actually user wants unlimited vertical space. 
+           If we set overflow-y: visible, the parent container needs to scroll.
+           The parent .timeline-container has overflow: hidden. We need to change that.
+        */
+        display: flex;
+        align-items: center; /* Center the line vertically relative to viewport? No, we want line in middle of content */
+        padding: 2rem;
+        height: auto;
+        min-height: 100%;
+      }
+
+      .timeline-wrapper.horizontal .timeline {
+        display: inline-flex;
+        flex-direction: row;
+        align-items: center;
+        height: auto; /* Let it grow */
+        min-height: 600px; /* Minimum height */
+        min-width: 100%;
+        max-width: none;
+        padding: 4rem 4rem; /* Add vertical padding */
+        margin: 0;
+      }
+
+      .timeline-wrapper.horizontal .timeline-line {
+        width: 100%;
+        height: 4px;
+        top: 40px; /* Position at top */
+        left: 0;
+        transform: none;
+        background: linear-gradient(to right, #e2e8f0 0%, #cbd5e1 50%, #e2e8f0 100%);
+      }
+
+      .timeline-wrapper.horizontal .timeline-item {
+        width: 320px;
+        flex-shrink: 0;
+        margin: 0 1.5rem;
+        height: auto;
+        min-height: 200px;
+        position: relative;
+        display: flex;
+        left: auto;
+        right: auto;
+        padding: 0;
+        text-align: left;
+        overflow: visible;
+        
+        /* Always below line */
+        flex-direction: column;
+        justify-content: flex-start;
+        padding-top: 80px; /* Space for line and connector */
+        align-self: stretch;
+      }
+
+      /* We need to ensure the "line" stays in the visual center of the items? 
+         If we use align-self: stretch, the items are as tall as the tallest one.
+         The line is at 50% of the container.
+         So top items will end at 50% - padding.
+         Bottom items will start at 50% + padding.
+         This works!
+      */
+
+      /* Scrollable content area for horizontal items - REMOVE scroll, allow full height */
+      .timeline-wrapper.horizontal .content {
+        width: 100%;
+        max-height: none;
+        overflow-y: visible;
+        padding-right: 0;
+      }
+      
+      /* Custom scrollbar for item content */
+      .timeline-wrapper.horizontal .content::-webkit-scrollbar {
+        width: 4px;
+      }
+      .timeline-wrapper.horizontal .content::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      .timeline-wrapper.horizontal .content::-webkit-scrollbar-thumb {
+        background-color: #cbd5e1;
+        border-radius: 4px;
+      }
+
+      .timeline-wrapper.horizontal .timeline-item {
+        left: auto;
+        right: auto;
+        text-align: left;
+        padding-left: 0;
+        padding-right: 0;
+      }
+
+      .timeline-wrapper.horizontal .dot {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        margin: 0;
+        flex-shrink: 0;
+        z-index: 20;
+        top: 30px; /* Center on line (40px top + 2px center - 10px half dot) */
+        bottom: auto;
+        right: auto;
+      }
+
+      /* Connector Lines for Horizontal Mode */
+      .timeline-wrapper.horizontal .timeline-item::before {
+        content: '';
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 2px;
+        background: #e2e8f0;
+        z-index: 1;
+        top: 40px; /* Start from line */
+        height: 40px; /* Connect to content */
+        bottom: auto;
+      }
+
+
+      .timeline-wrapper.horizontal .timeline-item .card-header {
+        flex-direction: row;
+      }
+      
+      /* Vertical Mode (Default) adjustments */
       
       h2 {
         display: inline-flex;
@@ -114,6 +306,25 @@ interface TimelineGroup {
         left: 50%;
         padding-left: 3rem;
         text-align: left;
+      }
+
+      /* Connector Lines for Vertical Mode */
+      .timeline-item::after {
+        content: '';
+        position: absolute;
+        top: 30px; /* Align with dot center approx */
+        height: 2px;
+        width: 3rem; /* Width of padding */
+        background: #e2e8f0;
+        z-index: 1;
+      }
+
+      .timeline-item.left::after {
+        right: 0;
+      }
+
+      .timeline-item.right::after {
+        left: 0;
       }
 
       .dot {
@@ -273,6 +484,13 @@ interface TimelineGroup {
         .timeline-item.left .card-header {
             flex-direction: row;
         }
+        
+        /* Hide connectors in mobile if they look messy, or adjust them */
+        .timeline-item::after {
+            width: 40px; /* Adjust width for mobile padding */
+            left: 30px; /* Start from line */
+            right: auto;
+        }
       }
     `,
   ],
@@ -280,8 +498,13 @@ interface TimelineGroup {
 export class TimelineViewComponent implements OnInit {
   events: Event[] = [];
   groupedEvents: TimelineGroup[] = [];
+  isHorizontal = false;
 
   constructor(private eventService: EventService) { }
+
+  toggleMode() {
+    this.isHorizontal = !this.isHorizontal;
+  }
 
   ngOnInit(): void {
     this.eventService.events$.subscribe((events) => {
