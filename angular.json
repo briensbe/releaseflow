@@ -32,7 +32,7 @@
             "outputPath": "dist/releaseflow",
             "polyfills": ["zone.js"],
             "scripts": [],
-            "styles": ["src/global_styles.css"],
+            "styles": ["src/global_styles.css", "node_modules/shepherd.js/dist/css/shepherd.css"],
             "tsConfig": "tsconfig.app.json"
           }
         },

@@ -45,3 +45,127 @@ button {
 *::-webkit-scrollbar-thumb:hover {
   background: #94a3b8;
 }
+
+
+/* Shepherd.js fichier exemple Claude pour KanbanBoardComponent */
+/* styles.scss ou styles.css global */
+
+/* Personnalisation du fond grisé (overlay) */
+.shepherd-modal-overlay-container {
+  background-color: rgba(0, 0, 0, 0.5) !important;
+}
+
+/* Style du tooltip principal */
+.shepherd-element {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 8px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+  max-width: 400px;
+  z-index: 9999;
+}
+
+.shepherd-content {
+  padding: 24px;
+}
+
+.shepherd-text {
+  color: white;
+  font-size: 16px;
+  line-height: 1.5;
+  margin-bottom: 16px;
+}
+
+.shepherd-header {
+  padding-bottom: 16px;
+}
+
+.shepherd-title {
+  color: white;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+/* Boutons */
+.shepherd-footer {
+  padding-top: 16px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.shepherd-button {
+  padding: 8px 16px;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.shepherd-button-primary {
+  background-color: white;
+  color: #667eea;
+}
+
+.shepherd-button-primary:hover {
+  background-color: #f0f0f0;
+  transform: translateY(-1px);
+}
+
+.shepherd-button-secondary {
+  background-color: rgba(255, 255, 255, 0.2);
+  color: white;
+}
+
+.shepherd-button-secondary:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+/* Bouton de fermeture */
+.shepherd-cancel-icon {
+  color: white;
+  font-size: 24px;
+}
+
+.shepherd-cancel-icon:hover {
+  opacity: 0.7;
+}
+
+/* Flèche du tooltip */
+.shepherd-arrow {
+  display: none; /* Ou personnalisez-la */
+}
+
+/* Highlight de l'élément ciblé */
+.shepherd-target-highlight {
+  position: relative;
+  z-index: 9998 !important;
+  box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.5),
+              0 0 0 9999px rgba(0, 0, 0, 0.5) !important;
+  border-radius: 4px;
+}
+
+/* Animation d'entrée */
+@keyframes shepherdFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.shepherd-element {
+  animation: shepherdFadeIn 0.3s ease-out;
+}
+
+/* Style pour les progrès (optionnel) */
+.shepherd-progress {
+  text-align: center;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 12px;
+  margin-top: 8px;
+}

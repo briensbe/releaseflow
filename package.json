@@ -15,8 +15,10 @@
     "@angular/platform-browser": "^20.0.0",
     "@angular/router": "^20.0.0",
     "@supabase/supabase-js": "^2.78.0",
+    "angular-shepherd": "^20.0.0",
     "lucide-angular": "^0.553.0",
     "rxjs": "^7.8.1",
+    "shepherd.js": "^14.5.1",
     "tslib": "^2.5.0",
     "zone.js": "~0.15.0"
   },
