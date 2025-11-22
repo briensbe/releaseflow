@@ -43,6 +43,7 @@ import {
               <lucide-icon name="user" class="icon"></lucide-icon>
               Profil
             </a>
+            <a routerLink="/kanban" routerLinkActive="active">Kanban</a>
           </div>
         </div>
       </nav>

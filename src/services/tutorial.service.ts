@@ -1,6 +1,8 @@
+// ========================================
+// 1. SERVICE: tutorial.service.ts
+// ========================================
 import { Injectable } from '@angular/core';
 import Shepherd from 'shepherd.js';
-import 'shepherd.js/dist/css/shepherd.css';
 
 @Injectable({
     providedIn: 'root'
@@ -10,23 +12,24 @@ export class TutorialService {
 
     startTutorial() {
         this.tour = new Shepherd.Tour({
-            useModalOverlay: true, // Grise le fond
+            useModalOverlay: true,
             defaultStepOptions: {
                 classes: 'shepherd-theme-custom',
-                scrollTo: true,
+                scrollTo: { behavior: 'smooth', block: 'center' },
                 cancelIcon: {
                     enabled: true
                 }
             }
         });
 
-        // Étape 1 : Focus sur un bouton
+        // Étape 1 : Bouton créer
         this.tour.addStep({
             id: 'step-1',
-            text: 'Cliquez ici pour créer un nouveau ticket',
+            title: '➕ Créer un ticket',
+            text: 'Cliquez ici pour créer un nouveau ticket dans votre tableau.<div class="shepherd-progress">Étape 1 sur 4</div>',
             attachTo: {
-                element: '.create-ticket-btn', // Sélecteur CSS de votre élément
-                on: 'bottom' // Position du tooltip (top, bottom, left, right)
+                element: '.create-ticket-btn',
+                on: 'bottom'
             },
             buttons: [
                 {
@@ -34,14 +37,37 @@ export class TutorialService {
                     action: this.tour.next,
                     classes: 'shepherd-button-primary'
                 }
-            ],
-            highlightClass: 'highlight' // Classe CSS pour le focus
+            ]
         });
 
-        // Étape 2 : Focus sur le tableau Kanban
+        // Étape 2 : Recherche
         this.tour.addStep({
             id: 'step-2',
-            text: 'Vous pouvez maintenant éditer les détails directement dans le tableau. Sélectionnez les champs à modifier.',
+            title: '🔍 Recherche rapide',
+            text: 'Utilisez la recherche pour filtrer vos tickets rapidement.<div class="shepherd-progress">Étape 2 sur 4</div>',
+            attachTo: {
+                element: '.search-input',
+                on: 'bottom'
+            },
+            buttons: [
+                {
+                    text: 'Précédent',
+                    action: this.tour.back,
+                    classes: 'shepherd-button-secondary'
+                },
+                {
+                    text: 'Suivant',
+                    action: this.tour.next,
+                    classes: 'shepherd-button-primary'
+                }
+            ]
+        });
+
+        // Étape 3 : Tableau Kanban
+        this.tour.addStep({
+            id: 'step-3',
+            title: '📋 Tableau Kanban',
+            text: 'Glissez-déposez vos tickets entre les colonnes pour changer leur statut.<div class="shepherd-progress">Étape 3 sur 4</div>',
             attachTo: {
                 element: '.kanban-board',
                 on: 'top'
@@ -60,13 +86,14 @@ export class TutorialService {
             ]
         });
 
-        // Étape 3 : Focus sur la recherche
+        // Étape 4 : Carte ticket
         this.tour.addStep({
-            id: 'step-3',
-            text: 'Utilisez la recherche pour filtrer vos tickets rapidement',
+            id: 'step-4',
+            title: '🎫 Édition rapide',
+            text: 'Cliquez sur un ticket pour éditer ses détails directement.<div class="shepherd-progress">Étape 4 sur 4</div>',
             attachTo: {
-                element: '.search-input',
-                on: 'bottom'
+                element: '.ticket-card',
+                on: 'right'
             },
             buttons: [
                 {
@@ -82,15 +109,13 @@ export class TutorialService {
             ]
         });
 
-        // Événements
         this.tour.on('complete', () => {
-            console.log('Tutorial terminé');
-            // Sauvegarder que l'utilisateur a vu le tutorial
-            localStorage.setItem('tutorial-completed', 'true');
+            console.log('✅ Tutorial terminé');
+            localStorage.setItem('kanban-tutorial-completed', 'true');
         });
 
         this.tour.on('cancel', () => {
-            console.log('Tutorial annulé');
+            console.log('❌ Tutorial annulé');
         });
 
         this.tour.start();

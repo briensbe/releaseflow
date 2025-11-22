@@ -4,7 +4,7 @@ import { ThemeService } from '../services/theme.service';
 import { LucideAngularModule } from 'lucide-angular';
 import { Router } from '@angular/router';
 import { User } from '../types/user.type';
-import { KanbanBoardComponent } from "../kanban/kanban-board/kanban-board";
+import { KanbanBoardComponent } from "../kanban/kanban-board/kanban-board.component";
 
 @Component({
   selector: 'app-profile',

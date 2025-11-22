@@ -1,0 +1,81 @@
+<!-- // ======================================== 
+ // 3. TEMPLATE: kanban-board.component.html //
+======================================== 
+-->
+<div class="kanban-container">
+  <!-- Barre d'outils -->
+  <div class="toolbar">
+    <h1>📊 Tableau SIDE</h1>
+
+    <!-- Zone de recherche -->
+    <div class="search-bar">
+      <input
+        type="text"
+        class="search-input"
+        [(ngModel)]="searchQuery"
+        (input)="onSearch()"
+        placeholder="🔍 Rechercher dans un ticket..."
+      />
+    </div>
+
+    <!-- Bouton créer ticket -->
+    <button class="create-ticket-btn" (click)="createTicket()">➕ Nouveau ticket</button>
+  </div>
+
+  <!-- Tableau Kanban -->
+  <div class="kanban-board">
+    <!-- Colonne BACKLOG -->
+    <div class="kanban-column">
+      <div class="column-header">
+        <h3>📝 BACKLOG</h3>
+        <span class="count">{{ getTicketsByStatus("backlog").length }}</span>
+      </div>
+      <div class="tickets-list">
+        <div *ngFor="let ticket of getTicketsByStatus('backlog')" class="ticket-card" (click)="editTicket(ticket)">
+          <h4>{{ ticket.title }}</h4>
+          <p>{{ ticket.description }}</p>
+          <div class="ticket-footer">
+            <span class="assignee">👤 {{ ticket.assignee }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Colonne EN COURS -->
+    <div class="kanban-column">
+      <div class="column-header">
+        <h3>⚡ EN COURS</h3>
+        <span class="count">{{ getTicketsByStatus("in-progress").length }}</span>
+      </div>
+      <div class="tickets-list">
+        <div *ngFor="let ticket of getTicketsByStatus('in-progress')" class="ticket-card" (click)="editTicket(ticket)">
+          <h4>{{ ticket.title }}</h4>
+          <p>{{ ticket.description }}</p>
+          <div class="ticket-footer">
+            <span class="assignee">👤 {{ ticket.assignee }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Colonne TERMINÉ -->
+    <div class="kanban-column">
+      <div class="column-header">
+        <h3>✅ TERMINÉ</h3>
+        <span class="count">{{ getTicketsByStatus("done").length }}</span>
+      </div>
+      <div class="tickets-list">
+        <div *ngFor="let ticket of getTicketsByStatus('done')" class="ticket-card done" (click)="editTicket(ticket)">
+          <h4>{{ ticket.title }}</h4>
+          <p>{{ ticket.description }}</p>
+          <div class="ticket-footer">
+            <span class="assignee">👤 {{ ticket.assignee }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bouton d'aide flottant -->
+  <button class="help-button" (click)="resetTutorial()" title="Relancer le tutorial">❓</button>
+</div>

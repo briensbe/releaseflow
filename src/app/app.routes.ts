@@ -9,6 +9,7 @@ import { AuthGuard } from "./guards/auth.guard";
 import { ProfileComponent } from "./profile/profile.component";
 import { ForgotPasswordComponent } from "./auth/forgot-password/forgot-password.component";
 import { UpdatePasswordComponent } from "./auth/update-password/update-password.component";
+import { KanbanBoardComponent } from "./kanban/kanban-board/kanban-board.component";
 
 export const routes: Routes = [
   { path: "login", component: LoginComponent },
@@ -25,6 +26,7 @@ export const routes: Routes = [
       { path: "timeline", component: TimelineViewComponent },
       { path: "profile", component: ProfileComponent },
       { path: "update-password", component: UpdatePasswordComponent },
+      { path: "kanban", component: KanbanBoardComponent },
     ],
   },
   { path: "**", redirectTo: "login" },
