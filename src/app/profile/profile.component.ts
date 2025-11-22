@@ -14,20 +14,36 @@ import { User } from '../types/user.type';
 })
 export class ProfileComponent implements OnInit {
   user: User | null = null;
+  loading = false;
+  showInfo = false;
 
   private readonly supabaseService = inject(SupabaseService);
   private readonly router = inject(Router);
   public readonly themeService = inject(ThemeService);
 
   ngOnInit() {
-    this.fetchUser();
+    // this.fetchUser();
+  }
+
+  async toggleUserInfo() {
+    if (this.user) {
+      this.showInfo = !this.showInfo;
+    } else {
+      await this.fetchUser();
+      this.showInfo = true;
+    }
   }
 
   async fetchUser() {
-    const { data } = await this.supabaseService.getUser();
-    this.user = data.user;
-    if (!this.user) {
-      this.router.navigate(['/login']);
+    this.loading = true;
+    try {
+      const { data } = await this.supabaseService.getUser();
+      this.user = data.user;
+      if (!this.user) {
+        this.router.navigate(['/login']);
+      }
+    } finally {
+      this.loading = false;
     }
   }
   async signOut() {
