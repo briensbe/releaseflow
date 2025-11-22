@@ -37,8 +37,7 @@ export class ProfileComponent implements OnInit {
   async fetchUser() {
     this.loading = true;
     try {
-      const { data } = await this.supabaseService.getUser();
-      this.user = data.user;
+      this.user = await this.supabaseService.getUser();
       if (!this.user) {
         this.router.navigate(['/login']);
       }

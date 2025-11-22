@@ -52,14 +52,22 @@ export class SupabaseService {
    * Récupère l'utilisateur actuellement connecté
    */
   async getUser() {
-    return await this.supabase.auth.getUser();
+    const user = sessionStorage.getItem('releaseflowUser');
+    if (user) {
+      return JSON.parse(user);
+    } else {
+      const { data: { user: currentUser } } = await this.supabase.auth.getUser();
+      sessionStorage.setItem('releaseflowUser', JSON.stringify(currentUser));
+      return currentUser;
+    }
   }
 
   /**
    * Déconnexion de l'utilisateur courant
    */
   async signOut() {
-    return await this.supabase.auth.signOut();
+    await this.supabase.auth.signOut();
+    sessionStorage.removeItem('releaseflowUser');
   }
 
   /**
