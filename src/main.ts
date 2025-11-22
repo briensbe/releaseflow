@@ -21,6 +21,8 @@ import {
   GitCommit,
   Columns,
   AlignJustify,
+  Sun,
+  Moon,
 } from "lucide-angular";
 
 @Component({
@@ -147,6 +149,8 @@ bootstrapApplication(App, {
         GitCommit,
         Columns,
         AlignJustify,
+        Sun,
+        Moon,
       })
     ),
   ],

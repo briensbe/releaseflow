@@ -492,6 +492,95 @@ interface TimelineGroup {
             right: auto;
         }
       }
+
+      /* Dark Mode Overrides */
+      :host-context(body.dark-mode) .timeline-container {
+        background: #0f172a;
+      }
+
+      :host-context(body.dark-mode) h2 {
+        background: #1e293b;
+        color: #f8fafc;
+      }
+
+      :host-context(body.dark-mode) .toggle-btn {
+        background: #1e293b;
+        border-color: #334155;
+        color: #cbd5e1;
+      }
+
+      :host-context(body.dark-mode) .toggle-btn:hover {
+        background: #334155;
+        color: #f8fafc;
+      }
+
+      :host-context(body.dark-mode) .timeline-line {
+        background: linear-gradient(to bottom, #334155 0%, #475569 50%, #334155 100%);
+      }
+
+      :host-context(body.dark-mode) .timeline-wrapper.horizontal .timeline-line {
+        background: linear-gradient(to right, #334155 0%, #475569 50%, #334155 100%);
+      }
+
+      :host-context(body.dark-mode) .date-badge {
+        background: #334155;
+        color: #f8fafc;
+      }
+
+      :host-context(body.dark-mode) .card {
+        background: #1e293b;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.1);
+      }
+
+      :host-context(body.dark-mode) .title {
+        color: #f8fafc;
+      }
+
+      :host-context(body.dark-mode) .version {
+        background: #334155;
+        color: #cbd5e1;
+      }
+
+      :host-context(body.dark-mode) .card-body p {
+        color: #cbd5e1;
+      }
+
+      :host-context(body.dark-mode) .card-header {
+        border-bottom-color: #334155;
+      }
+
+      :host-context(body.dark-mode) .timeline-item::after {
+        background: #334155;
+      }
+
+      :host-context(body.dark-mode) .timeline-wrapper.horizontal .timeline-item::before {
+        background: #334155;
+      }
+
+      :host-context(body.dark-mode) .dot {
+        background: #1e293b;
+        border-color: #60a5fa;
+        box-shadow: 0 0 0 4px rgba(96, 165, 250, 0.2);
+      }
+
+      :host-context(body.dark-mode) .timeline-item:hover .dot {
+        background: #60a5fa;
+        box-shadow: 0 0 0 6px rgba(96, 165, 250, 0.3);
+      }
+
+      :host-context(body.dark-mode) .timeline-wrapper.horizontal::-webkit-scrollbar-track {
+        background: #1e293b;
+      }
+
+      :host-context(body.dark-mode) .timeline-wrapper.horizontal::-webkit-scrollbar-thumb {
+        background-color: #475569;
+        border-color: #1e293b;
+      }
+
+      :host-context(body.dark-mode) .timeline-wrapper.horizontal::-webkit-scrollbar-thumb:hover {
+        background-color: #64748b;
+      }
+
     `,
   ],
 })

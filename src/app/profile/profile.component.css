@@ -6,7 +6,7 @@
   background: #ffffff;
   border-radius: 12px;
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   text-align: left; /* Alignement général à gauche */
 }
 
@@ -42,10 +42,13 @@
 
 /* Style du bouton de déconnexion */
 .container .btn {
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
   width: 100%;
   padding: 0.85rem;
-  margin-top: 2rem;
+  margin-top: 1rem;
   background-color: #e74c3c; /* Rouge pour indiquer une action importante */
   color: white;
   border: none;
@@ -62,7 +65,17 @@
 
 .container .btn-secondary {
   background-color: #6c757d; /* couleur différente pour le 2e bouton */
+  margin-top: 2rem;
 }
 .container .btn-secondary:hover {
-  background-color: #2a2b2c; 
+  background-color: #5a6268;
+}
+
+.container .btn-theme {
+  background-color: #3498db;
+  margin-top: 2rem;
+}
+
+.container .btn-theme:hover {
+  background-color: #2980b9;
 }

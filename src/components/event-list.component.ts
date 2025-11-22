@@ -701,6 +701,61 @@ import { LucideAngularModule } from "lucide-angular";
         color: #e05a5a;
       }
         */
+
+      /* Dark Mode Overrides */
+      :host-context(body.dark-mode) .event-list-container {
+        background: #1e293b;
+        border-right-color: #334155;
+      }
+
+      :host-context(body.dark-mode) h2 {
+        color: #f8fafc;
+      }
+
+      :host-context(body.dark-mode) .search-box input {
+        background: #334155;
+        border-color: #475569;
+        color: #f8fafc;
+      }
+
+      :host-context(body.dark-mode) .toggle-row .toggle-label {
+        color: #cbd5e1;
+      }
+
+      :host-context(body.dark-mode) .event-card {
+        background: #1e293b;
+        border-color: #334155;
+      }
+
+      :host-context(body.dark-mode) .event-card:hover {
+        background-color: #334155;
+      }
+
+      :host-context(body.dark-mode) .title {
+        color: #f8fafc;
+      }
+
+      :host-context(body.dark-mode) .date {
+        color: #94a3b8;
+      }
+
+      :host-context(body.dark-mode) .desc {
+        color: #cbd5e1;
+      }
+
+      :host-context(body.dark-mode) .icon-btn {
+        color: #cbd5e1;
+      }
+
+      :host-context(body.dark-mode) .icon-btn:hover {
+        background: #334155;
+      }
+      
+      :host-context(body.dark-mode) .badge.past {
+        background: #334155;
+        color: #94a3b8;
+      }
+
     `,
   ],
 })
@@ -717,7 +772,7 @@ export class EventListComponent implements OnInit {
   modalEvent: any = {};
   private modalEventId: string | null = null;
 
-  constructor(private eventService: EventService) {}
+  constructor(private eventService: EventService) { }
 
   ngOnInit(): void {
     this.eventService.events$.subscribe((events) => {

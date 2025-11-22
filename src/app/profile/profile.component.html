@@ -1,18 +1,18 @@
 <div class="container">
   <h2>User Profile</h2>
-  <p>
-    Congratulations! Welcome to secure auth with Angular + Supabase is running.
-    🎉
-  </p>
+  <p>Congratulations! Welcome to secure auth with Angular + Supabase is running. 🎉</p>
   @if (user) {
   <p>User ID: {{ user.id }}</p>
   <p>Email: {{ user.email }}</p>
   <p>Display Name: {{ user.user_metadata.displayName }}</p>
   }
-  
+
+  <button class="btn btn-theme" (click)="toggleTheme()">
+    <lucide-icon [name]="themeService.darkMode() ? 'sun' : 'moon'" size="20"></lucide-icon>
+    {{ themeService.darkMode() ? "Mode Clair" : "Mode Sombre" }}
+  </button>
+
   <button class="btn btn-secondary" (click)="updatePassword()">Modifier le mot de passe</button>
 
   <button class="btn" (click)="signOut()">Sign Out</button>
-  
-
 </div>

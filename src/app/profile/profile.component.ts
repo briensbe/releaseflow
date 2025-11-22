@@ -1,12 +1,14 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { SupabaseService } from '../../services/supabase.service';
+import { ThemeService } from '../services/theme.service';
+import { LucideAngularModule } from 'lucide-angular';
 import { Router } from '@angular/router';
 import { User } from '../types/user.type';
 
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [],
+  imports: [LucideAngularModule],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.css',
 })
@@ -15,6 +17,7 @@ export class ProfileComponent implements OnInit {
 
   private readonly supabaseService = inject(SupabaseService);
   private readonly router = inject(Router);
+  public readonly themeService = inject(ThemeService);
 
   ngOnInit() {
     this.fetchUser();
@@ -36,6 +39,9 @@ export class ProfileComponent implements OnInit {
     // await this.supabaseService.signOut();
     this.router.navigate(['/update-password']);
   }
-  
+
+  toggleTheme() {
+    this.themeService.toggleTheme();
+  }
 
 }
