@@ -441,6 +441,92 @@ color:white;}
         background: #dc2626;
       }
 
+      /* Dark Mode Overrides */
+      :host-context(body.dark-mode) .compact-header h2 {
+        color: #f8fafc;
+      }
+
+      :host-context(body.dark-mode) .nav-btn {
+        background: #1e293b;
+        border-color: #334155;
+        color: #cbd5e1;
+      }
+
+      :host-context(body.dark-mode) .nav-btn:hover {
+        background: #334155;
+        border-color: #60a5fa;
+        color: #60a5fa;
+      }
+
+      :host-context(body.dark-mode) .month-column {
+        background: #1e293b;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+      }
+
+      :host-context(body.dark-mode) .month-title {
+        background: #1e40af;
+        border-bottom-color: #334155;
+        color: #f8fafc;
+      }
+
+      :host-context(body.dark-mode) .table-header {
+        background: #334155;
+        color: #cbd5e1;
+        border-bottom-color: #475569;
+      }
+
+      :host-context(body.dark-mode) .table-header > div {
+        border-right-color: #475569;
+      }
+
+      :host-context(body.dark-mode) .table-row {
+        border-bottom-color: #334155;
+        color: #cbd5e1;
+      }
+
+      :host-context(body.dark-mode) .table-row:hover {
+        background: #334155;
+      }
+
+      :host-context(body.dark-mode) .table-row.today {
+        background: #1e3a8a;
+      }
+
+      :host-context(body.dark-mode) .table-row.has-events {
+        background: #3f3f46;
+      }
+
+      :host-context(body.dark-mode) .table-row.has-events:hover {
+        background: #52525b;
+      }
+
+      :host-context(body.dark-mode) .col-date,
+      :host-context(body.dark-mode) .col-day {
+        border-right-color: #334155;
+      }
+
+      :host-context(body.dark-mode) .compact-event {
+        background: #1e3a8a;
+        color: #93c5fd;
+      }
+
+      :host-context(body.dark-mode) .compact-event.event-mep {
+        background: #14532d;
+        color: #86efac;
+      }
+
+      :host-context(body.dark-mode) .add-compact-btn {
+        border-color: #475569;
+        color: #64748b;
+      }
+
+      :host-context(body.dark-mode) .add-compact-btn:hover {
+        border-color: #60a5fa;
+        color: #60a5fa;
+        background: #1e3a8a;
+      }
+
+
       @media (max-width: 1200px) {
         .months-grid {
           grid-template-columns: 1fr;

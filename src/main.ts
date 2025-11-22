@@ -123,6 +123,35 @@ import {
         vertical-align: middle;
         fill: currentColor;
       }
+
+      /* Dark Mode Overrides */
+      :host-context(body.dark-mode) {
+        background: #0f172a;
+      }
+
+      :host-context(body.dark-mode) .navbar {
+        background: #1e293b;
+        border-bottom-color: #334155;
+      }
+
+      :host-context(body.dark-mode) .app-title {
+        color: #f8fafc;
+      }
+
+      :host-context(body.dark-mode) .nav-links a {
+        color: #cbd5e1;
+      }
+
+      :host-context(body.dark-mode) .nav-links a:hover {
+        background: #334155;
+        color: #f8fafc;
+      }
+
+      :host-context(body.dark-mode) .nav-links a.active {
+        background: #2563eb;
+        color: white;
+      }
+
     `,
   ],
 })

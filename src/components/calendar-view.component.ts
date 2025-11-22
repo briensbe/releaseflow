@@ -381,6 +381,76 @@ import { SidebarPanelComponent } from "./sidebar-panel.component";
       .btn-delete:hover {
         background: #dc2626;
       }
+
+      /* Dark Mode Overrides */
+      :host-context(body.dark-mode) .calendar-header h2 {
+        color: #f8fafc;
+      }
+
+      :host-context(body.dark-mode) .nav-btn {
+        background: #1e293b;
+        border-color: #334155;
+        color: #cbd5e1;
+      }
+
+      :host-context(body.dark-mode) .nav-btn:hover {
+        background: #334155;
+        border-color: #60a5fa;
+        color: #60a5fa;
+      }
+
+      :host-context(body.dark-mode) .calendar-grid {
+        background: #334155;
+        border-color: #334155;
+      }
+
+      :host-context(body.dark-mode) .day-header {
+        background: #1e40af;
+        color: #f8fafc;
+      }
+
+      :host-context(body.dark-mode) .calendar-day {
+        background: #1e293b;
+      }
+
+      :host-context(body.dark-mode) .calendar-day:hover {
+        background: #334155;
+      }
+
+      :host-context(body.dark-mode) .calendar-day.other-month {
+        background: #0f172a;
+        opacity: 0.7;
+      }
+
+      :host-context(body.dark-mode) .calendar-day.today {
+        background: #1e3a8a;
+      }
+
+      :host-context(body.dark-mode) .day-number {
+        color: #cbd5e1;
+      }
+
+      :host-context(body.dark-mode) .event-item {
+        background: #1e3a8a;
+        color: #93c5fd;
+      }
+
+      :host-context(body.dark-mode) .event-item.event-mep {
+        background: #14532d;
+        color: #86efac;
+      }
+
+      :host-context(body.dark-mode) .add-event-btn {
+        border-color: #475569;
+        color: #64748b;
+      }
+
+      :host-context(body.dark-mode) .add-event-btn:hover {
+        border-color: #60a5fa;
+        color: #60a5fa;
+        background: #1e3a8a;
+      }
+
     `,
   ],
 })
