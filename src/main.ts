@@ -24,6 +24,7 @@ import {
   Sun,
   Moon,
 } from "lucide-angular";
+import { environment } from "./environments/environment";
 
 @Component({
   selector: "app-root",
@@ -43,7 +44,9 @@ import {
               <lucide-icon name="user" class="icon"></lucide-icon>
               Profil
             </a>
+            @if (environment.production === false) {
             <a routerLink="/kanban" routerLinkActive="active">Kanban</a>
+            }
           </div>
         </div>
       </nav>
@@ -156,7 +159,9 @@ import {
     `,
   ],
 })
-export class App { }
+export class App {
+  environment = environment;
+}
 
 bootstrapApplication(App, {
   providers: [

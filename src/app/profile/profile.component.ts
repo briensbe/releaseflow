@@ -4,12 +4,11 @@ import { ThemeService } from '../services/theme.service';
 import { LucideAngularModule } from 'lucide-angular';
 import { Router } from '@angular/router';
 import { User } from '../types/user.type';
-import { KanbanBoardComponent } from "../kanban/kanban-board/kanban-board.component";
 
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [LucideAngularModule, KanbanBoardComponent],
+  imports: [LucideAngularModule],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.css',
 })
@@ -23,7 +22,6 @@ export class ProfileComponent implements OnInit {
   public readonly themeService = inject(ThemeService);
 
   ngOnInit() {
-    // this.fetchUser();
   }
 
   async toggleUserInfo() {
