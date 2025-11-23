@@ -172,6 +172,59 @@ import { Event } from "../models/event.model";
         padding: 0.5rem 0.75rem;
         border-radius: 6px;
       }
+
+      /* Dark Mode Overrides */
+      :host-context(body.dark-mode) .modal-content {
+        background: #1e293b;
+        color: #f8fafc;
+      }
+      :host-context(body.dark-mode) .modal-header {
+        border-bottom-color: #334155;
+      }
+      :host-context(body.dark-mode) .modal-header h3 {
+        color: #f8fafc;
+      }
+      :host-context(body.dark-mode) .close-btn {
+        color: #cbd5e1;
+      }
+      :host-context(body.dark-mode) .close-btn:hover {
+        color: #f8fafc;
+      }
+      :host-context(body.dark-mode) .day-event-row {
+        border-bottom-color: #334155;
+      }
+      :host-context(body.dark-mode) .day-event-row:hover {
+        background: #334155;
+      }
+      :host-context(body.dark-mode) .info .title {
+        color: #f8fafc;
+      }
+      :host-context(body.dark-mode) .info .meta {
+        color: #94a3b8;
+      }
+      :host-context(body.dark-mode) .info .desc {
+        color: #cbd5e1;
+      }
+      :host-context(body.dark-mode) .modal-footer {
+        border-top-color: #334155;
+      }
+      :host-context(body.dark-mode) .btn-secondary {
+        background: #334155;
+        color: #cbd5e1;
+      }
+      :host-context(body.dark-mode) .btn-secondary:hover {
+        background: #475569;
+      }
+      :host-context(body.dark-mode) .icon-btn {
+        color: #cbd5e1;
+      }
+      :host-context(body.dark-mode) .icon-btn:hover {
+        background: #334155;
+      }
+
+      :host-context(body.dark-mode) input[type="date"]::-webkit-calendar-picker-indicator {
+        filter: invert(1);
+      }
     `,
   ],
 })

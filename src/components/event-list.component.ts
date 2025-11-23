@@ -783,15 +783,9 @@ import { LucideAngularModule } from "lucide-angular";
       }
 
       :host-context(body.dark-mode) input[type="text"],
-     /* :host-context(body.dark-mode) input[type="date"],*/
+      :host-context(body.dark-mode) input[type="date"],
       :host-context(body.dark-mode) select,
       :host-context(body.dark-mode) textarea {
-        background: #334155;
-        border-color: #475569;
-        color: #f8fafc;
-      }
-
-      :host-context(body.dark-mode) input[type="date"] {
         background: #334155;
         border-color: #475569;
         color: #f8fafc;
