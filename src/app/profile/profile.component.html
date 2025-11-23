@@ -13,7 +13,7 @@
   </div>
   }
 
-  <button class="btn btn-theme" (click)="toggleTheme()">
+  <button data-tour="darkmode-1" class="btn btn-theme" (click)="toggleTheme()">
     <lucide-icon [name]="themeService.darkMode() ? 'sun' : 'moon'" size="20"></lucide-icon>
     {{ themeService.darkMode() ? "Mode Clair" : "Mode Sombre" }}
   </button>
@@ -21,4 +21,5 @@
   <button class="btn btn-secondary" (click)="updatePassword()">Modifier le mot de passe</button>
 
   <button class="btn" (click)="signOut()">Sign Out</button>
+  <button class="help-button" (click)="replayTutorial()">?</button>
 </div>

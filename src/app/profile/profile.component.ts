@@ -4,6 +4,7 @@ import { ThemeService } from "../services/theme.service";
 import { LucideAngularModule } from "lucide-angular";
 import { Router } from "@angular/router";
 import { User } from "../types/user.type";
+import { ProfileTutorialService } from "../../services/profiletutorial.service";
 
 @Component({
   selector: "app-profile",
@@ -21,7 +22,16 @@ export class ProfileComponent implements OnInit {
   private readonly router = inject(Router);
   public readonly themeService = inject(ThemeService);
 
-  ngOnInit() {}
+  constructor(private tuto: ProfileTutorialService) {}
+
+  ngOnInit() {
+    this.tuto.init();
+    //this.tuto.startTutorial();
+  }
+
+  replayTutorial() {
+    this.tuto.startTutorial(); // relance le tutoriel à la demande
+  }
 
   async toggleUserInfo() {
     if (this.user) {

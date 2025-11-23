@@ -7,14 +7,14 @@ import Shepherd from 'shepherd.js';
 @Injectable({
     providedIn: 'root'
 })
-export class TutorialService {
+export class KanbanTutorialService {
     private tour: InstanceType<typeof Shepherd.Tour> | null = null;
 
     startTutorial() {
         this.tour = new Shepherd.Tour({
             useModalOverlay: true,
             defaultStepOptions: {
-                classes: 'shepherd-theme-custom',
+                classes: 'shepherd-theme-dark',
                 scrollTo: { behavior: 'smooth', block: 'center' },
                 cancelIcon: {
                     enabled: true

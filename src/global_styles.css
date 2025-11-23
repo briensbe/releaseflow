@@ -47,125 +47,101 @@ button {
 }
 
 
-/* Shepherd.js fichier exemple Claude pour KanbanBoardComponent */
-/* styles.scss ou styles.css global */
-
-/* Personnalisation du fond grisé (overlay) */
-.shepherd-modal-overlay-container {
-  background-color: rgba(0, 0, 0, 0.5) !important;
-}
-
-/* Style du tooltip principal */
+/* Shepherd.js fichier exemple ChatGPT pour profile */
+/* ------- Base du conteneur ------- */
 .shepherd-element {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  border-radius: 8px;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
-  max-width: 400px;
-  z-index: 9999;
+  background: #1f2937 !important; /* gris très sombre */
+  color: #e5e7eb !important;      /* gris clair */
+  border-radius: 10px;
+  border: 1px solid #374151;       /* gris un peu plus clair */
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+  padding: 12px 14px;
 }
 
-.shepherd-content {
-  padding: 24px;
-}
-
-.shepherd-text {
-  color: white;
-  font-size: 16px;
-  line-height: 1.5;
-  margin-bottom: 16px;
-}
-
-.shepherd-header {
-  padding-bottom: 16px;
-}
-
+/* ------- Titre ------- */
 .shepherd-title {
-  color: white;
-  font-size: 20px;
+  color: #f3f4f6 !important;
+  font-size: 1.1rem;
   font-weight: 600;
 }
 
-/* Boutons */
-.shepherd-footer {
-  padding-top: 16px;
-  display: flex;
-  justify-content: flex-end;
-  gap: 8px;
+/* ------- Texte ------- */
+.shepherd-text {
+  color: #d1d5db !important;
+  line-height: 1.4;
 }
 
+/* ------- Boutons ------- */
 .shepherd-button {
-  padding: 8px 16px;
-  border-radius: 4px;
-  border: none;
-  cursor: pointer;
-  font-size: 14px;
+  background: #4f46e5 !important;   /* Indigo (classe `indigo-600`) */
+  color: #fff !important;
+  border-radius: 6px !important;
+  padding: 6px 12px !important;
   font-weight: 500;
-  transition: all 0.2s;
+  transition: background 0.2s ease;
 }
 
-.shepherd-button-primary {
-  background-color: white;
-  color: #667eea;
-}
-
-.shepherd-button-primary:hover {
-  background-color: #f0f0f0;
-  transform: translateY(-1px);
+.shepherd-button:hover {
+  background: #4338ca !important;   /* Indigo-700 */
 }
 
 .shepherd-button-secondary {
-  background-color: rgba(255, 255, 255, 0.2);
-  color: white;
+  background: #374151 !important;
 }
-
 .shepherd-button-secondary:hover {
-  background-color: rgba(255, 255, 255, 0.3);
+  background: #4b5563 !important;
 }
 
-/* Bouton de fermeture */
+/* ------- Icone de fermeture ------- */
 .shepherd-cancel-icon {
-  color: white;
-  font-size: 24px;
+  color: #9ca3af !important;
 }
-
 .shepherd-cancel-icon:hover {
-  opacity: 0.7;
+  color: #f3f4f6 !important;
 }
 
-/* Flèche du tooltip */
-.shepherd-arrow {
-  display: none; /* Ou personnalisez-la */
+/* ------- Flèche ------- */
+.shepherd-element.shepherd-has-arrow .shepherd-arrow:before {
+  background: #1f2937 !important;
+  border: 1px solid #374151;
+  width: 16px;
+  height: 16px;
+  box-shadow: -2px -2px 5px rgba(0,0,0,0.4);
 }
 
-/* Highlight de l'élément ciblé */
-.shepherd-target-highlight {
-  position: relative;
-  z-index: 9998 !important;
-  box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.5),
-              0 0 0 9999px rgba(0, 0, 0, 0.5) !important;
-  border-radius: 4px;
+/* ------- Modal overlay ------- */
+.shepherd-modal-overlay-container {
+  background: rgba(0,0,0,0.65) !important; /* plus sombre que l'original */
 }
 
-/* Animation d'entrée */
-@keyframes shepherdFadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
+.shepherd-header {
+ background: #4f46e5 !important;   /* Indigo (classe `indigo-600`) */
+}
+
+/* bouton d'aide en bas à droite systématique */
+.help-button {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 24px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+  transition: all 0.3s;
+
+  &:hover {
+    transform: scale(1.1) rotate(10deg);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
   }
-  to {
-    opacity: 1;
-    transform: translateY(0);
+
+  &:active {
+    transform: scale(0.95);
   }
 }
 
-.shepherd-element {
-  animation: shepherdFadeIn 0.3s ease-out;
-}
-
-/* Style pour les progrès (optionnel) */
-.shepherd-progress {
-  text-align: center;
-  color: rgba(255, 255, 255, 0.7);
-  font-size: 12px;
-  margin-top: 8px;
-}

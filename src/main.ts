@@ -40,7 +40,7 @@ import { environment } from "./environments/environment";
             <a routerLink="/compact" routerLinkActive="active">Vue Compacte</a>
             <a routerLink="/list" routerLinkActive="active">Liste</a>
             <a routerLink="/timeline" routerLinkActive="active">Timeline</a>
-            <a routerLink="/profile" routerLinkActive="active">
+            <a data-tour="profile" routerLink="/profile" routerLinkActive="active">
               <lucide-icon name="user" class="icon"></lucide-icon>
               Profil
             </a>

@@ -2,7 +2,7 @@
 // 2. COMPOSANT: kanban-board.component.ts
 // ========================================
 import { Component, OnInit, AfterViewInit } from '@angular/core';
-import { TutorialService } from '../../../services/tutorial.service';
+import { KanbanTutorialService } from '../../../services/kanbantutorial.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
@@ -49,7 +49,7 @@ export class KanbanBoardComponent implements AfterViewInit {
     }
   ];
 
-  constructor(private tutorialService: TutorialService) { }
+  constructor(private tutorialService: KanbanTutorialService) { }
 
   ngAfterViewInit() {
     this.tutorialCompleted = localStorage.getItem('kanban-tutorial-completed') === 'true';
