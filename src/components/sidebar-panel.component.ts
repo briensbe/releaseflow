@@ -13,7 +13,7 @@ import { LucideAngularModule } from "lucide-angular";
       <div class="sidebar-content">
         <app-event-list [readonly]="true"></app-event-list>
       </div>
-      <button class="sidebar-toggle" (click)="toggleSidebar()">
+      <button data-tour="sidebar-toggle-tour" class="sidebar-toggle" (click)="toggleSidebar()">
         <lucide-icon [name]="isOpen ? 'panel-left-close' : 'panel-left-open'" size="20"></lucide-icon>
       </button>
     </div>
@@ -54,7 +54,7 @@ import { LucideAngularModule } from "lucide-angular";
 
       .sidebar-toggle {
         position: fixed;
-        bottom: 2rem;
+        top: 1.25rem;
         left: 1rem;
         width: 44px;
         height: 44px;

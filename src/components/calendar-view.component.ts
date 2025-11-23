@@ -459,7 +459,7 @@ export class CalendarViewComponent implements OnInit {
   calendarDays: any[] = [];
   weekDays = ["Lun", "Mar", "Mer", "Jeu", "Ven", "Sam", "Dim"];
   events: Event[] = [];
-  sidebarOpen = true;
+  sidebarOpen = false; //désactivé par défaut
 
   showModal = false;
   isEditMode = false;

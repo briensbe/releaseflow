@@ -539,7 +539,7 @@ export class CompactViewComponent implements OnInit {
   startDate = new Date();
   monthsData: any[] = [];
   events: Event[] = [];
-  sidebarOpen = true;
+  sidebarOpen = false; // désactivé par défaut
 
   showModal = false;
   isEditMode = false;
