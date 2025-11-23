@@ -52,6 +52,9 @@ export class SupabaseService {
    * Récupère l'utilisateur actuellement connecté
    */
   async getUser() {
+    return await this.supabase.auth.getUser();
+    // pb sur l'ajout en sessionStorage -> les pages sont accessibles sans connexion 
+    /*
     const user = sessionStorage.getItem('releaseflowUser');
     if (user) {
       return JSON.parse(user);
@@ -60,6 +63,7 @@ export class SupabaseService {
       sessionStorage.setItem('releaseflowUser', JSON.stringify(currentUser));
       return currentUser;
     }
+      */
   }
 
   /**
