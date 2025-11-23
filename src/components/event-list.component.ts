@@ -756,6 +756,71 @@ import { LucideAngularModule } from "lucide-angular";
         color: #94a3b8;
       }
 
+      /* Modal Dark Mode */
+      :host-context(body.dark-mode) .modal-content {
+        background: #1e293b;
+        color: #f8fafc;
+      }
+
+      :host-context(body.dark-mode) .modal-header {
+        border-bottom-color: #334155;
+      }
+
+      :host-context(body.dark-mode) .modal-header h3 {
+        color: #f8fafc;
+      }
+
+      :host-context(body.dark-mode) .close-btn {
+        color: #cbd5e1;
+      }
+
+      :host-context(body.dark-mode) .close-btn:hover {
+        color: #f8fafc;
+      }
+
+      :host-context(body.dark-mode) label {
+        color: #cbd5e1;
+      }
+
+      :host-context(body.dark-mode) input[type="text"],
+     /* :host-context(body.dark-mode) input[type="date"],*/
+      :host-context(body.dark-mode) select,
+      :host-context(body.dark-mode) textarea {
+        background: #334155;
+        border-color: #475569;
+        color: #f8fafc;
+      }
+
+      :host-context(body.dark-mode) input[type="date"] {
+        background: #334155;
+        border-color: #475569;
+        color: #f8fafc;
+      }
+
+      :host-context(body.dark-mode) input[type="date"]::-webkit-calendar-picker-indicator {
+        filter: invert(1); /* Makes the calendar icon white in dark mode */
+      }
+
+
+      :host-context(body.dark-mode) input:focus,
+      :host-context(body.dark-mode) select:focus,
+      :host-context(body.dark-mode) textarea:focus {
+        border-color: #60a5fa;
+      }
+
+      :host-context(body.dark-mode) .modal-footer {
+        border-top-color: #334155;
+      }
+
+      :host-context(body.dark-mode) .btn-secondary {
+        background: #334155;
+        color: #cbd5e1;
+      }
+
+      :host-context(body.dark-mode) .btn-secondary:hover {
+        background: #475569;
+      }
+
     `,
   ],
 })
