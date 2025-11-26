@@ -1,37 +1,73 @@
-import { Injectable, signal, effect } from '@angular/core';
+import { Injectable, signal, effect, computed } from '@angular/core';
+
+export type Theme = 'light' | 'dark' | 'system';
 
 @Injectable({
     providedIn: 'root'
 })
 export class ThemeService {
-    darkMode = signal<boolean>(false);
+    // The user's preference (explicit or system)
+    private themePreference = signal<Theme>('system');
+
+    // The actual system value (true if dark)
+    private systemDarkMode = signal<boolean>(false);
+
+    // The effective dark mode state
+    darkMode = computed(() => {
+        const preference = this.themePreference();
+        if (preference === 'system') {
+            return this.systemDarkMode();
+        }
+        return preference === 'dark';
+    });
+
+    // Public getter for components to observe darkMode changes
+    getDarkMode() {
+        return this.darkMode;
+    }
 
     constructor() {
-        // Load saved preference
-        const savedTheme = localStorage.getItem('theme');
-        if (savedTheme === 'dark') {
-            this.darkMode.set(true);
-        } else if (savedTheme === 'light') {
-            this.darkMode.set(false);
-        } else {
-            // Check system preference
-            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-            this.darkMode.set(prefersDark);
+        // 1. Initialize system preference
+        const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+        console.log("mediaQuery =" + mediaQuery);
+        this.systemDarkMode.set(mediaQuery.matches);
+
+
+        // Listener for system changes
+        mediaQuery.addEventListener('change', (e) => {
+            this.systemDarkMode.set(e.matches);
+        });
+
+        // 2. Load saved preference
+        const savedTheme = localStorage.getItem('theme') as Theme;
+        if (savedTheme && ['light', 'dark', 'system'].includes(savedTheme)) {
+            this.themePreference.set(savedTheme);
         }
 
-        // Apply theme when signal changes
+        // 3. Apply theme side effects
         effect(() => {
-            if (this.darkMode()) {
+            const isDark = this.darkMode();
+            if (isDark) {
                 document.body.classList.add('dark-mode');
-                localStorage.setItem('theme', 'dark');
             } else {
                 document.body.classList.remove('dark-mode');
-                localStorage.setItem('theme', 'light');
             }
+            // Save the preference
+            localStorage.setItem('theme', this.themePreference());
         });
     }
 
+    setTheme(theme: Theme) {
+        this.themePreference.set(theme);
+    }
+
     toggleTheme() {
-        this.darkMode.update(current => !current);
+        const current = this.themePreference();
+        if (current === 'system') {
+            // If system is dark, toggle to light. If system is light, toggle to dark.
+            this.themePreference.set(this.systemDarkMode() ? 'light' : 'dark');
+        } else {
+            this.themePreference.set(current === 'dark' ? 'light' : 'dark');
+        }
     }
 }
