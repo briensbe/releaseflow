@@ -1,7 +1,8 @@
 import { Component, inject, OnInit } from "@angular/core";
 import { SupabaseService } from "../../services/supabase.service";
-import { ThemeService } from "../services/theme.service";
+import { ThemeService, type Theme } from "../services/theme.service";
 import { LucideAngularModule } from "lucide-angular";
+import { CommonModule } from "@angular/common";
 import { Router } from "@angular/router";
 import { User } from "../types/user.type";
 import { ProfileTutorialService } from "../../services/profiletutorial.service";
@@ -9,7 +10,7 @@ import { ProfileTutorialService } from "../../services/profiletutorial.service";
 @Component({
   selector: "app-profile",
   standalone: true,
-  imports: [LucideAngularModule],
+  imports: [LucideAngularModule, CommonModule],
   templateUrl: "./profile.component.html",
   styleUrl: "./profile.component.css",
 })
@@ -21,6 +22,13 @@ export class ProfileComponent implements OnInit {
   private readonly supabaseService = inject(SupabaseService);
   private readonly router = inject(Router);
   public readonly themeService = inject(ThemeService);
+
+  // Theme options for the selector
+  themeOptions: Array<{ value: Theme; label: string; icon: string }> = [
+    { value: 'light', label: 'Clair', icon: 'sun' },
+    { value: 'dark', label: 'Sombre', icon: 'moon' },
+    { value: 'system', label: 'Navigateur', icon: 'monitor' },
+  ];
 
   constructor(private tuto: ProfileTutorialService) {}
 
@@ -67,5 +75,14 @@ export class ProfileComponent implements OnInit {
 
   toggleTheme() {
     this.themeService.toggleTheme();
+  }
+
+  setTheme(theme: Theme) {
+    this.themeService.setTheme(theme);
+  }
+
+  // Helper to get current theme preference
+  getCurrentTheme(): Theme {
+    return this.themeService.getThemePreference()();
   }
 }
