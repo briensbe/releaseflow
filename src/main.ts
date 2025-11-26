@@ -1,8 +1,9 @@
-import { Component, importProvidersFrom } from "@angular/core";
+import { Component, importProvidersFrom, inject } from "@angular/core";
 import { bootstrapApplication } from "@angular/platform-browser";
 import { provideRouter, RouterModule } from "@angular/router";
 import { routes } from "./app/app.routes";
 import { CommonModule } from "@angular/common";
+import { ThemeService } from "./app/services/theme.service";
 import {
   LucideAngularModule,
   User,
@@ -161,6 +162,8 @@ import { environment } from "./environments/environment";
 })
 export class App {
   environment = environment;
+  // Inject ThemeService to initialize theme listening globally for all pages
+  private themeService = inject(ThemeService);
 }
 
 bootstrapApplication(App, {
