@@ -13,10 +13,22 @@
   </div>
   }
 
-  <button data-tour="darkmode-1" class="btn btn-theme" (click)="toggleTheme()">
-    <lucide-icon [name]="themeService.darkMode() ? 'sun' : 'moon'" size="20"></lucide-icon>
-    {{ themeService.darkMode() ? "Mode Clair" : "Mode Sombre" }}
-  </button>
+  <div data-tour="darkmode-1" class="theme-selector">
+    <label>Thème:</label>
+    <div class="theme-buttons">
+      @for (theme of themeOptions; track theme.value) {
+        <button
+          class="theme-btn"
+          [class.active]="getCurrentTheme() === theme.value"
+          (click)="setTheme(theme.value)"
+          [title]="theme.label"
+        >
+          <lucide-icon [name]="theme.icon" size="20"></lucide-icon>
+          <span>{{ theme.label }}</span>
+        </button>
+      }
+    </div>
+  </div>
 
   <button class="btn btn-secondary" (click)="updatePassword()">Modifier le mot de passe</button>
 

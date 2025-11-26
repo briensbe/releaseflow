@@ -26,6 +26,11 @@ export class ThemeService {
         return this.darkMode;
     }
 
+    // Public getter for current theme preference
+    getThemePreference() {
+        return this.themePreference;
+    }
+
     constructor() {
         // 1. Initialize system preference
         const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');

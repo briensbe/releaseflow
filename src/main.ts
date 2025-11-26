@@ -24,6 +24,7 @@ import {
   AlignJustify,
   Sun,
   Moon,
+  Monitor,
 } from "lucide-angular";
 import { environment } from "./environments/environment";
 
@@ -189,6 +190,7 @@ bootstrapApplication(App, {
         AlignJustify,
         Sun,
         Moon,
+        Monitor,
       })
     ),
   ],
