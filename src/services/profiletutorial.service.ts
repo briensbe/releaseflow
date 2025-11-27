@@ -2,13 +2,15 @@ import { Injectable } from "@angular/core";
 // import Shepherd from "shepherd.js";
 import { ShepherdService } from "angular-shepherd";
 
+import { offset } from "@floating-ui/dom";
+
 @Injectable({
   providedIn: "root",
 })
 export class ProfileTutorialService {
   //   private tour: InstanceType<typeof Shepherd.Tour> | null = null;
 
-  constructor(private tour: ShepherdService) {}
+  constructor(private tour: ShepherdService) { }
 
   startTutorial() {
     this.tour.start();
@@ -39,26 +41,33 @@ export class ProfileTutorialService {
 
     this.tour.addSteps([
       {
-        id: "profile-step-2",
+        id: "profile-step-1",
         title: "Actions",
-        text: "Ici tu peux modifier ton profil.",
+        text: 'Ici tu peux modifier ton profil <div class="shepherd-progress">Étape 1 sur 2</div>',
         attachTo: {
           element: '[data-tour="profile"]', // élément sur lequel on veut pointer.
           on: "left", // ou autre position
         },
+        floatingUIOptions: {
+          middleware: [offset({ mainAxis: 10, crossAxis: 0 })]
+        },
         buttons: [{ text: "Suivant", action: () => this.tour.next() }],
       },
       {
-        id: "profile-step-1",
+        id: "profile-step-2",
         title: "Dark Mode",
-        text: 'Cliquez ici pour activer le thème Sombre ou rebasculer au thème Clair <div class="shepherd-progress">Étape 1 sur 4</div>',
+        text: 'Cliquez ici pour activer le thème Sombre ou rebasculer au thème Clair <div class="shepherd-progress">Étape 2 sur 2</div>',
         attachTo: {
           element: '[data-tour="darkmode-1"]', // élément sur lequel on veut pointer.
           on: "bottom", // ou autre position
         },
-        buttons: [{ text: "Terminer", action: () => this.tour.complete() }],
+        floatingUIOptions: {
+          middleware: [offset({ mainAxis: -10, crossAxis: 0 })]
+        },
+        buttons: [
+          { text: "Précédent", action: () => this.tour.back() }, { text: "Terminer", action: () => this.tour.complete() }],
       },
-      
+
     ]);
 
     // // première étape
