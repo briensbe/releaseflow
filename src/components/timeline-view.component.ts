@@ -142,7 +142,7 @@ interface TimelineGroup {
            If we set overflow-y: visible, the parent container needs to scroll.
            The parent .timeline-container has overflow: hidden. We need to change that.
         */
-        display: flex;
+        /*display: flex; */
         align-items: center; /* Center the line vertically relative to viewport? No, we want line in middle of content */
         padding: 2rem;
         height: auto;
@@ -156,18 +156,20 @@ interface TimelineGroup {
         height: auto; /* Let it grow */
         min-height: 600px; /* Minimum height */
         min-width: 100%;
+        width: max-content; /* Force container to grow to fit all items */
         max-width: none;
         padding: 4rem 4rem; /* Add vertical padding */
         margin: 0;
       }
 
       .timeline-wrapper.horizontal .timeline-line {
-        width: 100%;
+        width: auto; /* Use auto with left/right 0 to span full width */
+        left: 0;
+        right: 0;
         height: 4px;
         top: 40px; /* Position at top */
-        left: 0;
         transform: none;
-        background: linear-gradient(to right, #e2e8f0 0%, #cbd5e1 50%, #e2e8f0 100%);
+        background: #e2e8f0; /* Solid color to avoid fading out at the end */
       }
 
       .timeline-wrapper.horizontal .timeline-item {
