@@ -55,6 +55,8 @@ import { DayEventsModalComponent } from "./day-events-modal.component";
                 (click)="onRowClick(day)"
                 [class.has-events]="day.events.length > 0"
                 [class.today]="day.isToday"
+                [class.weekend]="day.isWeekend"
+                [class.holiday]="day.isHoliday"
               >
                 <div class="col-date">{{ day.dayNumber }}</div>
                 <div class="col-day">{{ day.dayName }}</div>
@@ -333,12 +335,14 @@ color:white;}
         background: #eff6ff;
       }
 
-      .table-row.has-events {
-        background: #fefce8;
+      .table-row.weekend,
+      .table-row.holiday {
+        background: #f8f9fa;
       }
 
-      .table-row.has-events:hover {
-        background: #fef9c3;
+      .table-row.weekend:hover,
+      .table-row.holiday:hover {
+        background: #e9ecef;
       }
 
       .col-date,
@@ -639,12 +643,14 @@ color:white;}
         background: #1e3a8a;
       }
 
-      :host-context(body.dark-mode) .table-row.has-events {
-        background: #3f3f46;
+      :host-context(body.dark-mode) .table-row.weekend,
+      :host-context(body.dark-mode) .table-row.holiday {
+        background: #27272a;
       }
 
-      :host-context(body.dark-mode) .table-row.has-events:hover {
-        background: #52525b;
+      :host-context(body.dark-mode) .table-row.weekend:hover,
+      :host-context(body.dark-mode) .table-row.holiday:hover {
+        background: #3f3f46;
       }
 
       :host-context(body.dark-mode) .col-date,
@@ -814,6 +820,8 @@ export class CompactViewComponent implements OnInit {
           dayName: this.getDayName(date),
           dateStr: dateStr,
           isToday: this.isToday(date),
+          isWeekend: this.isWeekend(date),
+          isHoliday: this.isFrenchHoliday(date),
           events: dayEvents,
         });
       }
@@ -844,6 +852,68 @@ export class CompactViewComponent implements OnInit {
       date.getMonth() === today.getMonth() &&
       date.getFullYear() === today.getFullYear()
     );
+  }
+
+  isWeekend(date: Date): boolean {
+    const day = date.getDay();
+    return day === 0 || day === 6; // Sunday or Saturday
+  }
+
+  isFrenchHoliday(date: Date): boolean {
+    const year = date.getFullYear();
+    const month = date.getMonth() + 1;
+    const day = date.getDate();
+
+    // Fixed holidays
+    const fixedHolidays = [
+      { m: 1, d: 1 },   // New Year
+      { m: 5, d: 1 },   // Labour Day
+      { m: 5, d: 8 },   // Victory Day
+      { m: 7, d: 14 },  // Bastille Day
+      { m: 8, d: 15 },  // Assumption
+      { m: 11, d: 1 },  // All Saints
+      { m: 11, d: 11 }, // Armistice
+      { m: 12, d: 25 }, // Christmas
+    ];
+
+    if (fixedHolidays.some(h => h.m === month && h.d === day)) {
+      return true;
+    }
+
+    // Easter-based holidays (using Meeus/Jones/Butcher algorithm)
+    const easter = this.getEasterDate(year);
+    const easterTime = easter.getTime();
+    const dateTime = date.getTime();
+    const dayMs = 24 * 60 * 60 * 1000;
+
+    // Easter Monday (+1 day)
+    if (dateTime === easterTime + dayMs) return true;
+
+    // Ascension (+39 days)
+    if (dateTime === easterTime + 39 * dayMs) return true;
+
+    // Whit Monday (+50 days)
+    if (dateTime === easterTime + 50 * dayMs) return true;
+
+    return false;
+  }
+
+  getEasterDate(year: number): Date {
+    const a = year % 19;
+    const b = Math.floor(year / 100);
+    const c = year % 100;
+    const d = Math.floor(b / 4);
+    const e = b % 4;
+    const f = Math.floor((b + 8) / 25);
+    const g = Math.floor((b - f + 1) / 3);
+    const h = (19 * a + b - d - g + 15) % 30;
+    const i = Math.floor(c / 4);
+    const k = c % 4;
+    const l = (32 + 2 * e + 2 * i - h - k) % 7;
+    const m = Math.floor((a + 11 * h + 22 * l) / 451);
+    const month = Math.floor((h + l - 7 * m + 114) / 31);
+    const day = ((h + l - 7 * m + 114) % 31) + 1;
+    return new Date(year, month - 1, day);
   }
 
   getPeriodTitle(): string {
