@@ -5,7 +5,7 @@
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   line-height: 1.5;
   color: #1a1a1a;
   background: #f1f5f9;
@@ -46,14 +46,13 @@ button {
   background: #94a3b8;
 }
 
-
 /* Shepherd.js fichier exemple ChatGPT pour profile */
 /* ------- Base du conteneur ------- */
 .shepherd-element {
   background: #1f2937 !important; /* gris très sombre */
-  color: #e5e7eb !important;      /* gris clair */
+  color: #e5e7eb !important; /* gris clair */
   border-radius: 10px;
-  border: 1px solid #374151;       /* gris un peu plus clair */
+  border: 1px solid #374151; /* gris un peu plus clair */
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
   padding: 12px 14px;
 }
@@ -73,7 +72,7 @@ button {
 
 /* ------- Boutons ------- */
 .shepherd-button {
-  background: #4f46e5 !important;   /* Indigo (classe `indigo-600`) */
+  background: #4f46e5 !important; /* Indigo (classe `indigo-600`) */
   color: #fff !important;
   border-radius: 6px !important;
   padding: 6px 12px !important;
@@ -82,7 +81,7 @@ button {
 }
 
 .shepherd-button:hover {
-  background: #4338ca !important;   /* Indigo-700 */
+  background: #4338ca !important; /* Indigo-700 */
 }
 
 .shepherd-button-secondary {
@@ -101,21 +100,26 @@ button {
 }
 
 /* ------- Flèche ------- */
-.shepherd-element.shepherd-has-arrow .shepherd-arrow:before {
+.shepherd-element.shepherd-has-arrow .shepherd-arrow::before {
   background: #1f2937 !important;
   border: 1px solid #374151;
   width: 16px;
   height: 16px;
-  box-shadow: -2px -2px 5px rgba(0,0,0,0.4);
+  box-shadow: -2px -2px 5px rgba(0, 0, 0, 0.4);
+}
+
+.shepherd-element [data-popper-arrow]::before,
+.shepherd-element [data-popper-arrow]::after {
+  background: #4f46e5 !important; /* Indigo (classe `indigo-600`) */
 }
 
 /* ------- Modal overlay ------- */
 .shepherd-modal-overlay-container {
-  background: rgba(0,0,0,0.65) !important; /* plus sombre que l'original */
+  background: rgba(0, 0, 0, 0.65) !important; /* plus sombre que l'original */
 }
 
 .shepherd-header {
- background: #4f46e5 !important;   /* Indigo (classe `indigo-600`) */
+  background: #4f46e5 !important; /* Indigo (classe `indigo-600`) */
 }
 
 /* bouton d'aide en bas à droite systématique */
@@ -144,4 +148,3 @@ button {
     transform: scale(0.95);
   }
 }
-
