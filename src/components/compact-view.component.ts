@@ -44,8 +44,8 @@ import { DayEventsModalComponent } from "./day-events-modal.component";
 
             <div class="compact-table">
               <div class="table-header">
-                <div class="col-date">Date</div>
-                <div class="col-day">Jour</div>
+                <div class="col-date">D</div>
+                <div class="col-day">J</div>
                 <div class="col-events">Événements</div>
               </div>
 
@@ -73,9 +73,9 @@ import { DayEventsModalComponent } from "./day-events-modal.component";
                       </lucide-icon>
                       {{ event.title.substring(0, 14) }}
                     </div>
-                    <button class="add-compact-btn" (click)="$event.stopPropagation(); openAddEventModal(day.dateStr)">
+                    <!-- <button class="add-compact-btn" (click)="$event.stopPropagation(); openAddEventModal(day.dateStr)">
                       +
-                    </button>
+                    </button> -->
                   </div>
                 </div>
               </div>
@@ -161,7 +161,7 @@ import { DayEventsModalComponent } from "./day-events-modal.component";
 
       .compact-container {
         flex: 1;
-        padding: 2rem;
+        padding: 1rem;
         overflow-y: auto;
       }
 
@@ -169,7 +169,7 @@ import { DayEventsModalComponent } from "./day-events-modal.component";
         display: flex;
         justify-content: space-between;
         align-items: center;
-        margin-bottom: 2rem;
+        margin-bottom: 1rem;
         flex-wrap: wrap;
         gap: 1rem;
       }
@@ -314,7 +314,7 @@ import { DayEventsModalComponent } from "./day-events-modal.component";
 
       .table-header {
         display: grid;
-        grid-template-columns: 50px 50px 1fr;
+        grid-template-columns: 30px 30px 1fr;
         background: #f8f9fa;
         font-weight: 600;
         color: #495057;
@@ -325,7 +325,7 @@ import { DayEventsModalComponent } from "./day-events-modal.component";
       }
 
       .table-header > div {
-        padding: 0.75rem 0.5rem;
+        padding: 0.5rem 0.25rem;
         border-right: 1px solid #e9ecef;
       }
 
@@ -335,10 +335,10 @@ import { DayEventsModalComponent } from "./day-events-modal.component";
 
       .table-row {
         display: grid;
-        grid-template-columns: 50px 50px 1fr;
+        grid-template-columns: 30px 30px 1fr;
         border-bottom: 1px solid #e9ecef;
         transition: background-color 0.2s;
-        min-height: 36px;
+        min-height: 28px;
       }
 
       .table-row:hover {
@@ -362,16 +362,17 @@ import { DayEventsModalComponent } from "./day-events-modal.component";
 
       .col-date,
       .col-day {
-        padding: 0.5rem;
+        padding: 0.25rem;
         border-right: 1px solid #e9ecef;
         display: flex;
         align-items: center;
         justify-content: center;
         font-weight: 500;
+        font-size: 0.85rem;
       }
 
       .col-events {
-        padding: 0.5rem;
+        padding: 0.25rem 0.5rem;
         display: flex;
         align-items: center;
       }
