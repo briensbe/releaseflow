@@ -11,7 +11,7 @@ import { Event } from "../models/event.model";
     <div class="modal" (click)="onClose()">
       <div class="modal-content" (click)="$event.stopPropagation()">
         <div class="modal-header">
-          <h3>Événements du jour - {{ dateStr }}</h3>
+          <h3>{{ formattedDate }}</h3>
           <button class="close-btn" (click)="onClose()">×</button>
         </div>
 
@@ -28,7 +28,7 @@ import { Event } from "../models/event.model";
                 </div>
                 <div class="info">
                   <div class="title">{{ ev.title }}</div>
-                  <div class="meta">{{ ev.event_date }} • {{ ev.version }}</div>
+                  <!-- <div class="meta">{{ ev.version }}</div> -->
                   <div class="desc">{{ ev.description }}</div>
                 </div>
               </div>
@@ -236,6 +236,17 @@ export class DayEventsModalComponent {
   @Output() close = new EventEmitter<void>();
   @Output() openEvent = new EventEmitter<Event>();
   @Output() add = new EventEmitter<string | null>();
+
+  get formattedDate(): string {
+    if (!this.dateStr) return '';
+    const date = new Date(this.dateStr);
+    return date.toLocaleDateString('fr-FR', {
+      weekday: 'long',
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric'
+    });
+  }
 
   onClose() {
     this.close.emit();

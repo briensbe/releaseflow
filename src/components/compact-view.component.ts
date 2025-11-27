@@ -93,6 +93,24 @@ import { DayEventsModalComponent } from "./day-events-modal.component";
         (add)="onDayModalAdd($event)"
       ></app-day-events-modal>
 
+      <div class="modal" *ngIf="showEmptyDayModal" (click)="closeEmptyDayModal()">
+        <div class="modal-content empty-day-modal" (click)="$event.stopPropagation()">
+          <div class="modal-header">
+            <h3>{{ emptyDayDate }}</h3>
+            <button class="close-btn" (click)="closeEmptyDayModal()">×</button>
+          </div>
+
+          <div class="modal-body">
+            <p class="empty-message">Aucune livraison prévue ce jour</p>
+          </div>
+
+          <div class="modal-footer">
+            <button class="btn-secondary" (click)="closeEmptyDayModal()">Fermer</button>
+            <button class="btn-primary" (click)="createEventFromEmptyDay()">+ Ajouter</button>
+          </div>
+        </div>
+      </div>
+
       <div class="modal" *ngIf="showModal" (click)="closeModal()">
         <div class="modal-content" (click)="$event.stopPropagation()">
           <div class="modal-header">
@@ -544,6 +562,22 @@ import { DayEventsModalComponent } from "./day-events-modal.component";
         background: #dc2626;
       }
 
+      /* Empty Day Modal */
+      .empty-day-modal {
+        max-width: 400px;
+      }
+
+      .empty-day-modal .modal-body {
+        padding: 2rem 1.5rem;
+      }
+
+      .empty-message {
+        color: #64748b;
+        font-size: 0.95rem;
+        margin: 0;
+        text-align: center;
+      }
+
       /* Dark Mode Overrides */
       :host-context(body.dark-mode) .compact-header h2 {
         color: #f8fafc;
@@ -735,6 +769,10 @@ import { DayEventsModalComponent } from "./day-events-modal.component";
         background: #475569;
       }
 
+      :host-context(body.dark-mode) .empty-message {
+        color: #cbd5e1;
+      }
+
 
       @media (max-width: 1200px) {
         .months-grid {
@@ -760,6 +798,11 @@ export class CompactViewComponent implements OnInit {
   showDayEventsModal = false;
   selectedDayEvents: Event[] = [];
   selectedDayDateStr: string | null = null;
+
+  // Empty day modal state
+  showEmptyDayModal = false;
+  emptyDayDate: string = '';
+  emptyDayDateStr: string = '';
 
   monthsCount = 4; // Default to 4 months
 
@@ -959,8 +1002,32 @@ export class CompactViewComponent implements OnInit {
       this.selectedDayDateStr = day.dateStr;
       this.showDayEventsModal = true;
     } else if (day && day.dateStr) {
-      this.openAddEventModal(day.dateStr);
+      // Show empty day modal instead of directly opening add event modal
+      this.emptyDayDateStr = day.dateStr;
+      this.emptyDayDate = this.formatDateForDisplay(day.dateStr);
+      this.showEmptyDayModal = true;
     }
+  }
+
+  formatDateForDisplay(dateStr: string): string {
+    const date = new Date(dateStr);
+    return date.toLocaleDateString('fr-FR', {
+      weekday: 'long',
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric'
+    });
+  }
+
+  closeEmptyDayModal(): void {
+    this.showEmptyDayModal = false;
+    this.emptyDayDate = '';
+    this.emptyDayDateStr = '';
+  }
+
+  createEventFromEmptyDay(): void {
+    this.showEmptyDayModal = false;
+    this.openAddEventModal(this.emptyDayDateStr);
   }
 
   onDayModalAdd(date: string | null) {
