@@ -146,7 +146,7 @@ interface TimelineGroup {
         align-items: center; /* Center the line vertically relative to viewport? No, we want line in middle of content */
         padding: 2rem;
         height: auto;
-        min-height: 100%;
+        min-height: 100%; /* This ensures the horizontal scrollable area takes at least 100% of its parent's height */
       }
 
       .timeline-wrapper.horizontal .timeline {
@@ -187,7 +187,7 @@ interface TimelineGroup {
         /* Always below line */
         flex-direction: column;
         justify-content: flex-start;
-        padding-top: 60px; /* Space for line and connector */ /* Reduced from 80px to reduce gap */
+        padding-top: 10px; /* Space for line and connector */ /* Reduced to bring cards up to the new dot position */
         align-self: stretch;
       }
 
@@ -239,7 +239,7 @@ interface TimelineGroup {
         margin: 0;
         flex-shrink: 0;
         z-index: 20;
-        top: 22px; /* Center on line (40px top + 2px center - 10px half dot) */
+        top: -32px; /* Center on line (40px top + 2px center - 10px half dot) */
         bottom: auto;
         right: auto;
       }
@@ -258,8 +258,8 @@ interface TimelineGroup {
         width: 2px;
         background: #e2e8f0;
         z-index: 1;
-        top: 42px; /* Start from line bottom */
-        height: 18px; /* Connect to content (60px - 42px) */
+        top: -12px; /* Start from bottom of dot (-32px + 20px height) */
+        height: 22px; /* Connect to content (10px padding - (-12px start)) */
         bottom: auto;
       }
 
