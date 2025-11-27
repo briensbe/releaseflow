@@ -289,10 +289,6 @@ import { DayEventsModalComponent } from "./day-events-modal.component";
         border-bottom: 2px solid #dee2e6;
       }
 
-   /*   h3.month-title {
-        background: ##2563eb;
-color:white;}
-*/
 
       .compact-table {
         font-size: 0.8rem;
@@ -332,12 +328,13 @@ color:white;}
       }
 
       .table-row.today {
-        background: #eff6ff;
+        background: #fef9c3;
+        /*background: #fefce8;*/
       }
 
       .table-row.weekend,
       .table-row.holiday {
-        background: #f8f9fa;
+        background: #f0f0f0;
       }
 
       .table-row.weekend:hover,
@@ -641,6 +638,8 @@ color:white;}
 
       :host-context(body.dark-mode) .table-row.today {
         background: #1e3a8a;
+        /*background: #fef9c3;*/
+        /*background: #fefce8;*/
       }
 
       :host-context(body.dark-mode) .table-row.weekend,
