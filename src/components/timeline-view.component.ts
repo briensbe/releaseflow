@@ -187,7 +187,7 @@ interface TimelineGroup {
         /* Always below line */
         flex-direction: column;
         justify-content: flex-start;
-        padding-top: 80px; /* Space for line and connector */
+        padding-top: 60px; /* Space for line and connector */ /* Reduced from 80px to reduce gap */
         align-self: stretch;
       }
 
@@ -227,6 +227,11 @@ interface TimelineGroup {
         padding-right: 0;
       }
 
+      /* Hide vertical connectors in horizontal mode */
+      .timeline-wrapper.horizontal .timeline-item::after {
+        display: none;
+      }
+
       .timeline-wrapper.horizontal .dot {
         position: absolute;
         left: 50%;
@@ -234,9 +239,14 @@ interface TimelineGroup {
         margin: 0;
         flex-shrink: 0;
         z-index: 20;
-        top: 30px; /* Center on line (40px top + 2px center - 10px half dot) */
+        top: 22px; /* Center on line (40px top + 2px center - 10px half dot) */
         bottom: auto;
         right: auto;
+      }
+
+      /* Fix hover effect in horizontal mode to keep centering */
+      .timeline-wrapper.horizontal .timeline-item:hover .dot {
+        transform: translateX(-50%) scale(1.2);
       }
 
       /* Connector Lines for Horizontal Mode */
@@ -248,8 +258,8 @@ interface TimelineGroup {
         width: 2px;
         background: #e2e8f0;
         z-index: 1;
-        top: 40px; /* Start from line */
-        height: 40px; /* Connect to content */
+        top: 42px; /* Start from line bottom */
+        height: 18px; /* Connect to content (60px - 42px) */
         bottom: auto;
       }
 
