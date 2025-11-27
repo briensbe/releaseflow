@@ -299,7 +299,7 @@ import { DayEventsModalComponent } from "./day-events-modal.component";
       .month-title {
         background: #2563eb;
         margin: 0;
-        padding: 1rem;
+        padding: 0.75rem;
         font-size: 1.125rem;
         font-weight: 600;
         color: white;
