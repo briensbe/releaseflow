@@ -25,6 +25,8 @@ import {
   Sun,
   Moon,
   Monitor,
+  Eye,
+  EyeOff,
 } from "lucide-angular";
 import { environment } from "./environments/environment";
 
@@ -191,6 +193,8 @@ bootstrapApplication(App, {
         Sun,
         Moon,
         Monitor,
+        Eye,
+        EyeOff,
       })
     ),
   ],
