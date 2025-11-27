@@ -2,17 +2,23 @@ import { Component, inject, signal } from '@angular/core';
 import { SupabaseService } from '../../../services/supabase.service';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { LucideAngularModule } from 'lucide-angular';
 
 @Component({
   selector: 'app-login',
-  imports: [FormsModule],
+  imports: [FormsModule, LucideAngularModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
 })
 export class LoginComponent {
   email = signal('');
   password = signal('');
+  showPassword = signal(false);
   loading = false;
+
+  togglePasswordVisibility() {
+    this.showPassword.update((value) => !value);
+  }
 
   private readonly supabaseService = inject(SupabaseService);
   private readonly router = inject(Router);
