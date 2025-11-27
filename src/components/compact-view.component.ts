@@ -16,9 +16,26 @@ import { DayEventsModalComponent } from "./day-events-modal.component";
       <app-sidebar-panel [isOpen]="sidebarOpen" (toggleEvent)="sidebarOpen = !sidebarOpen"></app-sidebar-panel>
       <div class="compact-container">
         <div class="compact-header">
-          <button class="nav-btn" (click)="previousPeriod()">‹</button>
-          <h2>{{ getPeriodTitle() }}</h2>
-          <button class="nav-btn" (click)="nextPeriod()">›</button>
+          <div class="header-controls">
+            <button class="nav-btn" (click)="previousPeriod()">‹</button>
+            <h2>{{ getPeriodTitle() }}</h2>
+            <button class="nav-btn" (click)="nextPeriod()">›</button>
+          </div>
+          
+          <div class="view-options">
+            <div class="option-group">
+              <label>Début:</label>
+              <input type="month" [ngModel]="startDateStr" (ngModelChange)="onStartDateChange($event)">
+            </div>
+            <div class="option-group">
+              <label>Mois:</label>
+              <div class="count-controls">
+                <button class="count-btn" (click)="changeMonthsCount(-1)" [disabled]="monthsCount <= 1">-</button>
+                <span class="count-display">{{ monthsCount }}</span>
+                <button class="count-btn" (click)="changeMonthsCount(1)" [disabled]="monthsCount >= 12">+</button>
+              </div>
+            </div>
+          </div>
         </div>
 
         <div class="months-grid">
@@ -133,6 +150,91 @@ import { DayEventsModalComponent } from "./day-events-modal.component";
         justify-content: space-between;
         align-items: center;
         margin-bottom: 2rem;
+        flex-wrap: wrap;
+        gap: 1rem;
+      }
+
+      .header-controls {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+      }
+
+      .view-options {
+        display: flex;
+        gap: 1.5rem;
+        align-items: center;
+        background: white;
+        padding: 0.5rem 1rem;
+        border-radius: 8px;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      }
+
+      .option-group {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .option-group label {
+        margin: 0;
+        font-size: 0.875rem;
+        color: #64748b;
+      }
+
+      .option-group input {
+        padding: 0.25rem 0.5rem;
+        border: 1px solid #e2e8f0;
+        border-radius: 4px;
+        font-size: 0.875rem;
+        color: #1e293b;
+        width: auto;
+      }
+
+      .count-controls {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        background: #f1f5f9;
+        padding: 0.125rem;
+        border-radius: 4px;
+        border: 1px solid #e2e8f0;
+      }
+
+      .count-btn {
+        width: 24px;
+        height: 24px;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: white;
+        border: 1px solid #cbd5e1;
+        border-radius: 3px;
+        cursor: pointer;
+        font-size: 1rem;
+        line-height: 1;
+        color: #475569;
+      }
+
+      .count-btn:hover:not(:disabled) {
+        background: #f8fafc;
+        color: #2563eb;
+        border-color: #2563eb;
+      }
+
+      .count-btn:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+        background: #f1f5f9;
+      }
+
+      .count-display {
+        min-width: 20px;
+        text-align: center;
+        font-weight: 600;
+        font-size: 0.875rem;
+        color: #1e293b;
       }
 
       .compact-header h2 {
@@ -163,7 +265,7 @@ import { DayEventsModalComponent } from "./day-events-modal.component";
 
       .months-grid {
         display: grid;
-        grid-template-columns: repeat(4, 1fr);
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
         gap: 1.5rem;
       }
 
@@ -458,6 +560,51 @@ color:white;}
         color: #60a5fa;
       }
 
+      :host-context(body.dark-mode) .view-options {
+        background: #1e293b;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+      }
+
+      :host-context(body.dark-mode) .option-group label {
+        color: #cbd5e1;
+      }
+
+      :host-context(body.dark-mode) .option-group input {
+        background: #334155;
+        border-color: #475569;
+        color: #f8fafc;
+      }
+
+      :host-context(body.dark-mode) .option-group input[type="month"]::-webkit-calendar-picker-indicator {
+        filter: invert(1);
+      }
+
+      :host-context(body.dark-mode) .count-controls {
+        background: #334155;
+        border-color: #475569;
+      }
+
+      :host-context(body.dark-mode) .count-btn {
+        background: #1e293b;
+        border-color: #475569;
+        color: #cbd5e1;
+      }
+
+      :host-context(body.dark-mode) .count-btn:hover:not(:disabled) {
+        background: #475569;
+        color: #60a5fa;
+        border-color: #60a5fa;
+      }
+
+      :host-context(body.dark-mode) .count-btn:disabled {
+        background: #334155;
+        color: #64748b;
+      }
+
+      :host-context(body.dark-mode) .count-display {
+        color: #f8fafc;
+      }
+
       :host-context(body.dark-mode) .month-column {
         background: #1e293b;
         box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
@@ -609,6 +756,8 @@ export class CompactViewComponent implements OnInit {
   selectedDayEvents: Event[] = [];
   selectedDayDateStr: string | null = null;
 
+  monthsCount = 4; // Default to 4 months
+
   constructor(private eventService: EventService) {
     this.startDate.setDate(1);
   }
@@ -620,11 +769,32 @@ export class CompactViewComponent implements OnInit {
     });
   }
 
+  changeMonthsCount(delta: number): void {
+    const newCount = this.monthsCount + delta;
+    if (newCount >= 1 && newCount <= 12) {
+      this.monthsCount = newCount;
+      this.generateCompactView();
+    }
+  }
+
+  onStartDateChange(dateStr: string): void {
+    if (dateStr) {
+      const [year, month] = dateStr.split('-').map(Number);
+      this.startDate = new Date(year, month - 1, 1);
+      this.generateCompactView();
+    }
+  }
+
+  get startDateStr(): string {
+    const year = this.startDate.getFullYear();
+    const month = String(this.startDate.getMonth() + 1).padStart(2, '0');
+    return `${year}-${month}`;
+  }
+
   generateCompactView(): void {
     this.monthsData = [];
 
-    const nbMonthsToDisplay = 4;
-    for (let i = 0; i < nbMonthsToDisplay; i++) {
+    for (let i = 0; i < this.monthsCount; i++) {
       const monthDate = new Date(this.startDate.getFullYear(), this.startDate.getMonth() + i, 1);
       const monthTitle = monthDate.toLocaleDateString("fr-FR", {
         month: "long",
@@ -677,7 +847,7 @@ export class CompactViewComponent implements OnInit {
   }
 
   getPeriodTitle(): string {
-    const endDate = new Date(this.startDate.getFullYear(), this.startDate.getMonth() + 2, 0);
+    const endDate = new Date(this.startDate.getFullYear(), this.startDate.getMonth() + this.monthsCount, 0);
     return `${this.startDate.toLocaleDateString("fr-FR", {
       month: "long",
       year: "numeric",
@@ -685,12 +855,12 @@ export class CompactViewComponent implements OnInit {
   }
 
   previousPeriod(): void {
-    this.startDate = new Date(this.startDate.getFullYear(), this.startDate.getMonth() - 3, 1);
+    this.startDate = new Date(this.startDate.getFullYear(), this.startDate.getMonth() - this.monthsCount, 1);
     this.generateCompactView();
   }
 
   nextPeriod(): void {
-    this.startDate = new Date(this.startDate.getFullYear(), this.startDate.getMonth() + 3, 1);
+    this.startDate = new Date(this.startDate.getFullYear(), this.startDate.getMonth() + this.monthsCount, 1);
     this.generateCompactView();
   }
 
