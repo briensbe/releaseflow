@@ -38,10 +38,14 @@ import { DayEventsModalComponent } from "./day-events-modal.component";
           </div>
         </div>
 
-        <div class="months-grid">
-          <div *ngFor="let monthData of monthsData" class="month-column">
+        <div class="months-titles">
+          <div *ngFor="let monthData of monthsData" class="month-title-wrapper">
             <h3 class="month-title">{{ monthData.title }}</h3>
+          </div>
+        </div>
 
+        <div class="months-content">
+          <div *ngFor="let monthData of monthsData" class="month-column-content">
             <div class="compact-table">
               <div class="table-header">
                 <div class="col-date">D</div>
@@ -162,6 +166,10 @@ import { DayEventsModalComponent } from "./day-events-modal.component";
       .compact-container {
         flex: 1;
         padding: 1rem;
+        padding-top: 0;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
         overflow-y: auto;
       }
 
@@ -283,15 +291,20 @@ import { DayEventsModalComponent } from "./day-events-modal.component";
         border-color: #2563eb;
       }
 
-      .months-grid {
+      .months-titles {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
         gap: 1.5rem;
+        position: sticky;
+        top: 0;
+        z-index: 30;
+        background: #f3f4f6;
+        padding-bottom: 0;
       }
 
-      .month-column {
+      .month-title-wrapper {
         background: white;
-        border-radius: 8px;
+        border-radius: 8px 8px 0 0;
         overflow: hidden;
         box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
       }
@@ -305,6 +318,22 @@ import { DayEventsModalComponent } from "./day-events-modal.component";
         color: white;
         text-align: center;
         border-bottom: 2px solid #dee2e6;
+      }
+
+      .months-content {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 1.5rem;
+        align-items: start;
+        padding-bottom: 1rem;
+      }
+
+      .month-column-content {
+        background: white;
+        border-radius: 0 0 8px 8px;
+        overflow: hidden;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        height: fit-content;
       }
 
 
@@ -582,6 +611,20 @@ import { DayEventsModalComponent } from "./day-events-modal.component";
       /* Dark Mode Overrides */
       :host-context(body.dark-mode) .compact-header h2 {
         color: #f8fafc;
+      }
+
+      :host-context(body.dark-mode) .months-titles {
+        background: #0f172a;
+      }
+
+      :host-context(body.dark-mode) .month-title-wrapper {
+        background: #1e293b;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+      }
+
+      :host-context(body.dark-mode) .month-column-content {
+        background: #1e293b;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
       }
 
       :host-context(body.dark-mode) .nav-btn {
